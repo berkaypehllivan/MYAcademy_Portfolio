@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MYAcademy_Portfolio.Context;
 
 namespace MYAcademy_Portfolio.ViewComponents.DefaultViewComponents;
@@ -14,7 +15,7 @@ public class _DefaultProjectComponentPartial : ViewComponent
 
     public IViewComponentResult Invoke()
     {
-        var values = _context.Projects.ToList();
+        var values = _context.Projects.Include(x => x.Category).ToList();
         return View(values);
     }
 }
