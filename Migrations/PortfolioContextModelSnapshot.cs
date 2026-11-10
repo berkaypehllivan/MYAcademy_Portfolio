@@ -30,6 +30,10 @@ namespace MYAcademy_Portfolio.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AboutId"));
 
+                    b.Property<string>("CvUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -38,7 +42,15 @@ namespace MYAcademy_Portfolio.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Expert")
+                    b.Property<string>("Expertise")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstLastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageUrl")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -50,11 +62,7 @@ namespace MYAcademy_Portfolio.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("NameSurname")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("OpenToWork")
+                    b.Property<string>("Phone")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -108,6 +116,10 @@ namespace MYAcademy_Portfolio.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("SubDescription")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -131,6 +143,9 @@ namespace MYAcademy_Portfolio.Migrations
 
                     b.Property<string>("Duration")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Location")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SubTitle")
@@ -272,6 +287,12 @@ namespace MYAcademy_Portfolio.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Keywords")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LiveDemoUrl")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -281,6 +302,31 @@ namespace MYAcademy_Portfolio.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Projects");
+                });
+
+            modelBuilder.Entity("MYAcademy_Portfolio.Entities.Skill", b =>
+                {
+                    b.Property<int>("SkillId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SkillId"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Keywords")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("SkillId");
+
+                    b.ToTable("Skills");
                 });
 
             modelBuilder.Entity("MYAcademy_Portfolio.Entities.Project", b =>

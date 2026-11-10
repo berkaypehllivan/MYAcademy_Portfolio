@@ -1,5 +1,11 @@
-﻿namespace MYAcademy_Portfolio.ViewComponents.DefaultViewComponents;
+﻿using Microsoft.AspNetCore.Mvc;
 
-public class _DefaultExperienceComponentPartial
+namespace MYAcademy_Portfolio.ViewComponents.DefaultViewComponents;
+
+public class _DefaultExperienceComponentPartial : ViewComponent
 {
+    public IViewComponentResult Invoke()
+    {
+        return View();
+    }
 }

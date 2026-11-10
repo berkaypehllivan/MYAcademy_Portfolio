@@ -1,0 +1,329 @@
+﻿@model List<MYAcademy_Portfolio.Entities.Message>
+@{
+    ViewData["Title"] = "Mesaj Kutusu";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="container-fluid px-0 py-3">
+
+    <div class="card border-0 shadow-sm rounded-4">
+
+        <div class="card-header bg-transparent border-bottom p-4">
+            <div class="d-flex align-items-center gap-3">
+
+                <div class="d-flex align-items-center justify-content-center bg-primary bg-opacity-10 text-primary rounded-3 flex-shrink-0"
+                     style="width: 44px; height: 44px; font-size: 1.25rem;">
+                                         <div class="pd-ico green">✉</div>
+
+                    <i class="bi bi-envelope"></i>
+                </div>
+
+                <div>
+                    <h5 class="fw-bold text-dark mb-0 fs-6">Gelen Mesajlar</h5>
+                    <small class="text-muted">
+                        Portfolyonuz üzerinden gönderilen mesajları buradan yönetebilirsiniz.
+                    </small>
+                    <span class="fw-medium text-dark">
+                        <span id="unreadCount">@Model.Count(x => !x.IsRead)</span> okunmamış mesaj
+                    </span>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="card-body p-4">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead style="background-color: #f9fafb;">
+                        <tr>
+                            <th class="border-bottom-0 text-uppercase text-secondary" style="font-size: 12px; font-weight: 600; width: 80px;">Durum</th>
+                            <th class="border-bottom-0 text-uppercase text-secondary" style="font-size: 12px; font-weight: 600;">Gönderen</th>
+                            <th class="border-bottom-0 text-uppercase text-secondary" style="font-size: 12px; font-weight: 600;">Konu</th>
+                            <th class="border-bottom-0 text-uppercase text-secondary" style="font-size: 12px; font-weight: 600;">Mesaj</th>
+                            <th class="border-bottom-0 text-uppercase text-secondary" style="font-size: 12px; font-weight: 600;">Tarih</th>
+                            <th class="border-bottom-0 text-uppercase text-secondary text-end" style="font-size: 12px; font-weight: 600; width: 160px;">İşlemler</th>
+                        </tr>
+                    </thead>
+
+                    <tbody class="border-top-0">
+                        @foreach (var item in Model)
+                        {
+                            <tr class="@(item.IsRead ? "" : "fw-semibold")">
+                                <td>
+                                    @if (!item.IsRead)
+                                    {
+                                        <span class="badge rounded-pill new-badge px-3 py-1 bg-primary">Yeni</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge rounded-pill new-badge px-3 py-1 bg-success">Okundu</span>
+                                    }
+                                </td>
+
+                                <td>
+                                    <div class="text-dark">@item.NameSurname</div>
+                                    <div class="text-muted small fw-normal">@item.Email</div>
+                                </td>
+
+                                <td class="text-dark">@item.Subject</td>
+
+                                <td>
+                                    <div class="text-muted small fw-normal text-truncate" style="max-width: 220px;">
+                                        @item.MessageDetail
+                                    </div>
+                                </td>
+
+                                <td class="text-muted small fw-normal text-nowrap">
+                                    @item.SendDate.ToString("dd.MM.yyyy HH:mm")
+                                </td>
+
+                                <td class="text-end text-nowrap">
+                                    <button type="button"
+                                            class="btn btn-sm text-primary bg-primary bg-opacity-10 border-0 rounded-pill px-3 me-1 fw-medium btn-read"
+                                            data-id="@item.MessageId"
+                                            data-name="@item.NameSurname"
+                                            data-email="@item.Email"
+                                            data-subject="@item.Subject"
+                                            data-message="@item.MessageDetail"
+                                            data-date="@item.SendDate.ToString("dd.MM.yyyy HH:mm")"
+                                            data-read="@item.IsRead.ToString().ToLower()">
+                                        Oku
+                                    </button>
+
+                                    <a href="/Admin/Message/Delete/@item.MessageId"
+                                       class="btn btn-sm text-danger bg-danger bg-opacity-10 border-0 rounded-pill px-3 fw-medium btn-delete">
+                                        Sil
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+
+                        @if (!Model.Any())
+                        {
+                            <tr>
+                                <td colspan="6" class="text-center text-muted py-4">
+                                    Henüz mesaj yok.
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- MESAJ OKUMA MODALI -->
+<div class="modal fade" id="readModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content border-0 shadow rounded-4">
+            <div class="modal-header border-bottom-0 pb-0">
+                <h5 class="modal-title fw-bold" id="readSubject"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Kapat"></button>
+            </div>
+            <div class="modal-body">
+                <div class="d-flex justify-content-between flex-wrap gap-2 mb-3">
+                    <div>
+                        <div class="fw-medium text-dark" id="readName"></div>
+                        <div class="text-muted small" id="readEmail"></div>
+                    </div>
+                    <div class="text-muted small" id="readDate"></div>
+                </div>
+                <div class="bg-light rounded-3 p-3" id="readBody" style="white-space: pre-wrap;"></div>
+            </div>
+            <div class="modal-footer border-top-0">
+                <button type="button" class="btn btn-outline-secondary rounded-3" data-bs-dismiss="modal">Kapat</button>
+                <button type="button" class="btn btn-primary rounded-3" id="openReply">
+                    <i class="bx bx-reply"></i> Yanıtla
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- YANIT MODALI -->
+<div class="modal fade" id="replyModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content border-0 shadow rounded-4">
+            <form id="replyForm" method="post">
+                <div class="modal-header border-bottom-0 pb-0">
+                    <h5 class="modal-title fw-bold">Mesajı Yanıtla</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Kapat"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold small text-dark">Alıcı</label>
+                        <input type="email" name="to" id="replyTo" class="form-control rounded-3" readonly />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold small text-dark">Konu</label>
+                        <input type="text" name="subject" id="replySubject" class="form-control rounded-3" required />
+                    </div>
+                    <div>
+                        <label class="form-label fw-semibold small text-dark">Mesajınız</label>
+                        <textarea name="body" id="replyBody" class="form-control rounded-3" rows="9" required></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer border-top-0">
+                    <button type="button" class="btn btn-outline-secondary rounded-3" data-bs-dismiss="modal">Vazgeç</button>
+                    <button type="submit" class="btn btn-primary rounded-3" style="background-color: #4f46e5; border-color: #4f46e5;">
+                        <i class="bi bi-send"></i> Gönder
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script>
+        (function () {
+
+            // Modal elementleri
+            const readModalEl = document.getElementById('readModal');
+            const replyModalEl = document.getElementById('replyModal');
+
+            const readModal = new bootstrap.Modal(readModalEl);
+            const replyModal = new bootstrap.Modal(replyModalEl);
+
+            let current = null;
+
+            // Mesajı okundu olarak işaretle
+            function markAsRead(btn) {
+
+                if (btn.dataset.read === 'true') return;
+
+                fetch('/Admin/Message/MarkAsRead/' + btn.dataset.id, {
+                    method: 'POST'
+                })
+                .then(function (res) {
+
+                    if (!res.ok) {
+                        console.error('Mesaj okundu olarak işaretlenemedi.');
+                        return;
+                    }
+
+                    btn.dataset.read = 'true';
+
+                    const row = btn.closest('tr');
+
+                    row.classList.remove('fw-semibold');
+
+                    const badge = row.querySelector('.new-badge');
+
+                    if (badge) {
+                        badge.remove();
+                    }
+
+                    const counter = document.getElementById('unreadCount');
+
+                    counter.textContent = Math.max(
+                        0,
+                        parseInt(counter.textContent) - 1
+                    );
+
+                })
+                .catch(function (error) {
+                    console.error('Hata:', error);
+                });
+            }
+
+
+            // Mesajı oku butonu
+            document.querySelectorAll('.btn-read').forEach(function (btn) {
+
+                btn.addEventListener('click', function () {
+
+                    current = btn.dataset;
+
+                    document.getElementById('readSubject').textContent =
+                        current.subject;
+
+                    document.getElementById('readName').textContent =
+                        current.name;
+
+                    document.getElementById('readEmail').textContent =
+                        current.email;
+
+                    document.getElementById('readDate').textContent =
+                        current.date;
+
+                    document.getElementById('readBody').textContent =
+                        current.message;
+
+                    readModal.show();
+
+                    markAsRead(btn);
+
+                });
+
+            });
+
+
+            // Yanıtla butonu
+            document.getElementById('openReply').addEventListener('click', function () {
+
+                if (!current) return;
+
+                // Alıcı bilgilerini doldur
+                document.getElementById('replyTo').value =
+                    current.email;
+
+                // Konuyu doldur
+                document.getElementById('replySubject').value =
+                    'Re: ' + current.subject;
+
+                // Mesaj alanını temizle
+                document.getElementById('replyBody').value = '';
+
+                // Okuma modalını kapat
+                readModal.hide();
+
+                // Yanıt modalını aç
+                replyModal.show();
+
+            });
+
+
+            // Yanıt formu
+const replyForm = document.getElementById('replyForm');
+
+if (replyForm) {
+
+    replyForm.addEventListener('submit', function (e) {
+
+        // Formun Controller'a gönderilmesini engelle
+        e.preventDefault();
+
+        // Form doğrulaması
+        if (!replyForm.checkValidity()) {
+            replyForm.reportValidity();
+            return;
+        }
+
+        // Modalı kapat
+        replyModal.hide();
+
+        // Başarılı gönderim simülasyonu
+        Swal.fire({
+            icon: 'success',
+            title: 'Yanıt Gönderildi!',
+            text: 'Mesajınız başarıyla gönderildi.',
+            confirmButtonText: 'Tamam',
+            confirmButtonColor: '#3085d6'
+        });
+
+        // Form alanlarını temizle
+        replyForm.reset();
+
+    });
+
+}
+
+
+        })();
+    </script>
+
+}

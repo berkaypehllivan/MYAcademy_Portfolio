@@ -2,8 +2,6 @@
 using MYAcademy_Portfolio.Context;
 using MYAcademy_Portfolio.Entities;
 
-namespace MYAcademy_Portfolio.Areas.Admin.Controllers;
-
 [Area("Admin")]
 public class ExperienceController : Controller
 {
@@ -14,45 +12,52 @@ public class ExperienceController : Controller
         _context = context;
     }
 
-    public IActionResult ExperienceList()
+    public IActionResult Index()
     {
         var values = _context.Experiences.ToList();
         return View(values);
     }
 
     [HttpGet]
-    public IActionResult CreateExperience()
+    public IActionResult Create(int? id)
     {
-        return View();
+        if (id.HasValue && id > 0)
+        {
+            var value = _context.Experiences.Find(id.Value);
+            if (value != null) return View(value);
+        }
+        return View(new Experience());
     }
 
     [HttpPost]
-    public IActionResult CreateExperience(Experience experience)
+    public IActionResult Create(Experience experience)
     {
         _context.Experiences.Add(experience);
-        _context.SaveChangesAsync();
-        return RedirectToAction("ExperienceList");
-    }
-
-    public IActionResult DeleteExperience(int id)
-    {
-        var value = _context.Experiences.Find(id);
-        _context.Experiences.Remove(value);
-        _context.SaveChangesAsync();
-        return RedirectToAction("ExperienceList");
-    }
-
-    public IActionResult UpdateExperience(int id)
-    {
-        var value = _context.Experiences.Find(id);
-        return View(value);
+        _context.SaveChanges();
+        TempData["Success"] = "Deneyim Başarıyla Eklendi.";
+        return RedirectToAction("Index");
     }
 
     [HttpPost]
-    public IActionResult UpdateExperience(Experience experience)
+    public IActionResult Update(Experience experience)
     {
         _context.Experiences.Update(experience);
-        _context.SaveChangesAsync();
-        return RedirectToAction("ExperienceList");
+        _context.SaveChanges();
+        TempData["Success"] = "Deneyim Başarıyla Güncellendi.";
+
+        return RedirectToAction("Index");
+    }
+
+    public IActionResult Delete(int id)
+    {
+        var value = _context.Experiences.Find(id);
+        if (value != null)
+        {
+            _context.Experiences.Remove(value);
+            _context.SaveChanges();
+            TempData["Success"] = "Deneyim Başarıyla Silindi.";
+
+        }
+        return RedirectToAction("Index");
     }
 }

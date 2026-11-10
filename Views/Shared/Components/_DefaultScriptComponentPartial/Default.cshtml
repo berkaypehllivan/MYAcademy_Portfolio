@@ -1,0 +1,107 @@
+﻿
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+            // Typing animation
+            const sentences = [
+                "Modern Web Uygulamaları Geliştiriyorum.",
+                "Yazılımla Problemlere Çözüm Üretiyorum.",
+                "Kullanıcı Odaklı Deneyimler Tasarlıyorum.",
+                "Yeni Teknolojilerle Geleceği İnşa Ediyorum."
+            ];
+            const typed = document.getElementById('typedText');
+            let si = 0, ci = 0, deleting = false;
+            function typeLoop() {
+                const s = sentences[si];
+                typed.textContent = s.substring(0, deleting ? --ci : ++ci);
+                let delay = deleting ? 40 : 75;
+                if (!deleting && ci === s.length) { delay = 1800; deleting = true; }
+                else if (deleting && ci === 0) { deleting = false; si = (si + 1) % sentences.length; delay = 350; }
+                setTimeout(typeLoop, delay);
+            }
+            if (typed) setTimeout(typeLoop, 500);
+
+            // Navbar shadow + scroll-to-top
+            const navbar = document.getElementById('mainNavbar');
+            const topBtn = document.getElementById('scrollToTopBtn');
+            window.addEventListener('scroll', function () {
+                const on = window.scrollY > 50;
+                navbar.classList.toggle('scrolled', on);
+                topBtn.classList.toggle('visible', on);
+            }, { passive: true });
+            topBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+            // Navbar: scroll konumuna göre aktif link
+const navItems = document.querySelectorAll('.navbar-nav .nav-link');
+const spySections = Array.from(navItems)
+    .map(l => document.querySelector(l.getAttribute('href')))
+    .filter(Boolean);
+
+function updateActiveLink() {
+    const offset = 140; // navbar yüksekliği + biraz pay
+    let current = spySections[0];
+
+    spySections.forEach(function (sec) {
+        if (sec.getBoundingClientRect().top <= offset) current = sec;
+    });
+
+    // Sayfanın en altındaysak son bölüm aktif olsun
+    if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) {
+        current = spySections[spySections.length - 1];
+    }
+
+    navItems.forEach(function (l) {
+        l.classList.toggle('active', l.getAttribute('href') === '#' + current.id);
+    });
+}
+
+let ticking = false;
+window.addEventListener('scroll', function () {
+    if (!ticking) {
+        requestAnimationFrame(function () { updateActiveLink(); ticking = false; });
+        ticking = true;
+    }
+}, { passive: true });
+
+updateActiveLink(); // sayfa ilk açıldığında da çalışsın
+
+            // Close mobile menu after click
+            const collapseEl = document.getElementById('navbarContent');
+            document.querySelectorAll('.navbar-nav .nav-link, #btnDownloadCv').forEach(function (link) {
+                link.addEventListener('click', function () {
+                    if (window.innerWidth < 992 && collapseEl.classList.contains('show')) {
+                        bootstrap.Collapse.getInstance(collapseEl).hide();
+                    }
+                });
+            });
+
+            // Project filter (categories come from the database)
+            const filterButtons = document.querySelectorAll('#projectFilterGroup .filter-btn');
+            const projectItems = document.querySelectorAll('.project-item');
+            filterButtons.forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    filterButtons.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    const f = this.getAttribute('data-filter');
+                    projectItems.forEach(function (item) {
+                        item.style.display = (f === 'all' || item.getAttribute('data-category') === f) ? '' : 'none';
+                    });
+                });
+            });
+
+            // Contact form (demo submit)
+            const form = document.getElementById('contactForm');
+            const ok = document.getElementById('formSuccessMessage');
+            if (form) {
+                form.addEventListener('submit', function (e) {
+                    e.preventDefault();
+                    if (!form.checkValidity()) { form.classList.add('was-validated'); return; }
+                    form.classList.remove('was-validated');
+                    ok.classList.remove('d-none');
+                    form.reset();
+                    setTimeout(() => ok.classList.add('d-none'), 6000);
+                });
+            }
+        });
+    </script>

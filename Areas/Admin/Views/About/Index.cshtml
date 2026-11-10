@@ -1,0 +1,83 @@
+﻿@model MYAcademy_Portfolio.Entities.About
+@{
+    ViewData["Title"] = "Hakkımda Yönetimi";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="container-fluid px-0 py-3">
+
+    <div class="card border-0 shadow-sm rounded-4">
+        <form asp-area="Admin" asp-controller="About" asp-action="Index" method="post">
+
+            <div class="card-header bg-transparent border-bottom p-4">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="d-flex align-items-center justify-content-center bg-primary bg-opacity-10 text-primary rounded-3 flex-shrink-0" style="width: 44px; height: 44px; font-size: 1.25rem;">
+                                            <div class="pd-ico danger">👤</div>
+
+                     </div>
+                    <div>
+                        <h5 class="fw-bold text-dark mb-0 fs-6">Kişisel Bilgiler</h5>
+                        <small class="text-muted">Public sayfadaki profil kartı ve biyografi bu bilgilerden oluşur.</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-body p-4">
+                <div class="row g-3">
+
+                    <div class="col-md-6">
+                        <label asp-for="FirstLastName" class="form-label fw-semibold small text-dark">Ad Soyad <span class="text-danger">*</span></label>
+                        <input asp-for="FirstLastName" class="form-control rounded-3" placeholder="Örn: Berkay Pehlivan" required />
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="JobTitle" class="form-label fw-semibold small text-dark">Meslek <span class="text-danger">*</span></label>
+                        <input asp-for="JobTitle" class="form-control rounded-3" placeholder="Örn: Bilgisayar Mühendisi" required />
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="Expertise" class="form-label fw-semibold small text-dark">Uzmanlık <span class="text-danger">*</span></label>
+                        <input asp-for="Expertise" class="form-control rounded-3" placeholder="Örn: Full Stack Web Development" required />
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="Location" class="form-label fw-semibold small text-dark">Konum <span class="text-danger">*</span></label>
+                        <input asp-for="Location" class="form-control rounded-3" placeholder="Örn: İstanbul, Türkiye" required />
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="Email" class="form-label fw-semibold small text-dark">E-Posta <span class="text-danger">*</span></label>
+                        <input asp-for="Email" type="email" class="form-control rounded-3" placeholder="iletisim@ornek.com" required />
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="Phone" class="form-label fw-semibold small text-dark">Telefon <span class="text-danger">*</span></label>
+                        <input asp-for="Phone" class="form-control rounded-3" placeholder="+90 5XX XXX XX XX" required />
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="ImageUrl" class="form-label fw-semibold small text-dark">Profil Görseli (URL) <span class="text-danger">*</span></label>
+                        <input asp-for="ImageUrl" class="form-control rounded-3" placeholder="https://ornek.com/foto.jpg" required />
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="CvUrl" class="form-label fw-semibold small text-dark">CV Bağlantısı <span class="text-danger">*</span></label>
+                        <input asp-for="CvUrl" class="form-control rounded-3" placeholder="https://drive.google.com/..." required />
+                    </div>
+
+                    <div class="col-12">
+                        <label asp-for="Description" class="form-label fw-semibold small text-dark">Biyografi <span class="text-danger">*</span></label>
+                        <textarea asp-for="Description" class="form-control rounded-3" rows="4" required></textarea>
+                        <div class="form-text small">Paragrafları boş satırla ayırın.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-footer bg-light border-top p-3 d-flex justify-content-end rounded-bottom-4">
+                <button type="submit" class="btn btn-primary rounded-3 px-4 py-2 fw-medium">
+                    Kaydet
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

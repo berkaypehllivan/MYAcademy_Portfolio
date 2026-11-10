@@ -18,4 +18,5 @@ public class PortfolioContext : DbContext
     public DbSet<HeroSection> HeroSections { get; set; }
     public DbSet<Category> Categories { get; set; }
     public DbSet<Project> Projects { get; set; }
+    public DbSet<Skill> Skills { get; set; }
 }

@@ -1,0 +1,60 @@
+    <section id="contact">
+        <div class="container">
+            <div class="sec-head">
+                <h2 class="sec-title">Birlikte harika işler üretebiliriz</h2>
+                <p class="sec-sub">Yeni projeler, iş birlikleri veya yalnızca merhaba demek için bana yazabilirsiniz.</p>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-lg-5">
+                    <div class="contact-info">
+                        <h3 class="fs-4 mb-3">İletişim Bilgileri</h3>
+                        <p class="mb-4" style="color: rgba(255,255,255,.72);">Aşağıdaki kanallardan doğrudan ulaşabilir veya formu doldurabilirsiniz.</p>
+
+                        <div class="c-item"><div class="c-ico"><i class="bi bi-envelope"></i></div><div><div class="c-label">E-posta</div><a href="mailto:Berkay.PEHLİVAN@example.com" class="c-link">Berkay.PEHLİVAN@example.com</a></div></div>
+                        <div class="c-item"><div class="c-ico"><i class="bi bi-geo-alt"></i></div><div><div class="c-label">Konum</div><div class="c-link">İstanbul, Türkiye</div></div></div>
+                        <div class="c-item"><div class="c-ico"><i class="bi bi-linkedin"></i></div><div><div class="c-label">LinkedIn</div><a href="https://linkedin.com" target="_blank" rel="noopener" class="c-link">linkedin.com/in/BerkayPEHLİVAN</a></div></div>
+                        <div class="c-item"><div class="c-ico"><i class="bi bi-github"></i></div><div><div class="c-label">GitHub</div><a href="https://github.com" target="_blank" rel="noopener" class="c-link">github.com/BerkayPEHLİVAN</a></div></div>
+
+                        <div class="reply-note mt-3"><span class="live-dot"></span> Genellikle 24 saat içinde yanıt veriyorum</div>
+                    </div>
+                </div>
+
+                <div class="col-lg-7">
+                    <div class="contact-form-card">
+                        @* TODO: Mesajlar paneline bağlamak için bu formu bir POST action'a yönlendir *@
+                        <form id="contactForm" novalidate>
+                            <div id="formSuccessMessage" class="alert alert-success border-0 rounded-3 small py-2 px-3 mb-4 d-none" role="alert">
+                                <i class="bi bi-check-circle-fill me-2"></i> Mesajınız iletildi, teşekkürler!
+                            </div>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label for="contactFullName" class="form-label">Adınız Soyadınız</label>
+                                    <input type="text" class="form-control" id="contactFullName" name="FullName" placeholder="Örn: Ahmet Yılmaz" required>
+                                    <div class="invalid-feedback">Lütfen adınızı ve soyadınızı giriniz.</div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="contactEmail" class="form-label">E-posta Adresiniz</label>
+                                    <input type="email" class="form-control" id="contactEmail" name="Email" placeholder="Örn: ahmet@example.com" required>
+                                    <div class="invalid-feedback">Geçerli bir e-posta adresi giriniz.</div>
+                                </div>
+                                <div class="col-12">
+                                    <label for="contactSubject" class="form-label">Konu</label>
+                                    <input type="text" class="form-control" id="contactSubject" name="Subject" placeholder="Örn: Proje iş birliği" required>
+                                    <div class="invalid-feedback">Lütfen mesaj konusunu belirtiniz.</div>
+                                </div>
+                                <div class="col-12">
+                                    <label for="contactMessage" class="form-label">Mesajınız</label>
+                                    <textarea class="form-control" id="contactMessage" name="Message" rows="5" placeholder="Projeniz veya paylaşmak istedikleriniz..." required></textarea>
+                                    <div class="invalid-feedback">Lütfen mesajınızı yazınız.</div>
+                                </div>
+                                <div class="col-12 mt-3">
+                                    <button type="submit" class="btn-main btn-send w-100 justify-content-center py-3"><i class="bi bi-send-fill"></i> Mesaj Gönder</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>

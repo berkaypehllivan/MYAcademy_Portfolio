@@ -17,6 +17,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="System.Security.Cryptography.Pkcs" Version="9.0.21" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,6 +25,8 @@
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="ViewComponents\AdminViewComponents\" />
     <Folder Include="ViewComponents\StatisticsViewComponents\" />
+    <Folder Include="wwwroot\files\" />
+    <Folder Include="wwwroot\img\projects\" />
   </ItemGroup>
 
 </Project>

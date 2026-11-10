@@ -1,0 +1,68 @@
+﻿@model List<MYAcademy_Portfolio.Entities.Education>
+@{
+    ViewData["Title"] = "Eğitim Yönetimi";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="container-fluid px-0 py-3">
+    <div class="card border-0 shadow-sm rounded-4">
+<div class="card-header bg-transparent border-bottom p-4">
+        
+    <div class="d-flex align-items-center gap-3">
+        <div class="d-flex align-items-center justify-content-center bg-primary bg-opacity-10 text-primary rounded-3 flex-shrink-0"
+             style="width: 44px; height: 44px; font-size: 1.25rem;">
+                                 <div class="pd-ico info">🎓</div>
+
+        </div>
+
+        <div>
+            <h5 class="fw-bold text-dark mb-0 fs-6">Eğitim Bilgileri</h5>
+            <small class="text-muted">
+                Public sayfadaki eğitim kısmı bu bilgilerden oluşur.
+            </small>
+        </div>
+
+        <a href="/Admin/Education/Create"
+           class="btn btn-primary px-3 py-2 rounded-3 ms-auto">
+            <i class="bx bx-plus"></i> Yeni Eğitim Ekle
+        </a>
+    </div>
+</div>
+        <div class="card-body p-4">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead style="background-color: #f9fafb;">
+                        <tr>
+                            <th class="border-bottom-0 text-uppercase text-secondary" style="font-size: 12px; font-weight: 600; letter-spacing: 0.03em;">Kurum (Başlık)</th>
+                            <th class="border-bottom-0 text-uppercase text-secondary" style="font-size: 12px; font-weight: 600; letter-spacing: 0.03em;">Bölüm (Alt Başlık)</th>
+                            <th class="border-bottom-0 text-uppercase text-secondary" style="font-size: 12px; font-weight: 600; letter-spacing: 0.03em;">Tarih</th>
+                            <th class="border-bottom-0 text-uppercase text-secondary" style="font-size: 12px; font-weight: 600; letter-spacing: 0.03em;">Konum</th>
+                            <th class="border-bottom-0 text-uppercase text-secondary text-end" style="font-size: 12px; font-weight: 600; letter-spacing: 0.03em;">İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody class="border-top-0">
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="fw-medium text-dark">@item.Title</td>
+                                <td class="text-muted small">@item.SubTitle</td>
+                                <td>
+                                    <span class="badge bg-primary bg-opacity-10 text-primary rounded-pill px-3 py-1">@item.Duration</span>
+                                </td>
+                                <td class="text-muted small">@item.Location</td>
+                                <td class="text-end">
+                                    <a href="/Admin/Education/Create/@item.EducationId" class="btn btn-sm text-primary bg-primary bg-opacity-10 border-0 rounded-pill px-3 me-1 fw-medium">
+                                        Düzenle
+                                    </a>
+                                    <a href="/Admin/Education/Delete/@item.EducationId" class="btn btn-sm text-danger bg-danger bg-opacity-10 border-0 rounded-pill px-3 fw-medium btn-delete">
+                                        Sil
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
