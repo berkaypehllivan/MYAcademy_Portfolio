@@ -1,4 +1,5 @@
-﻿   @{
+﻿  @model MYAcademy_Portfolio.Entities.About
+@{
            var controller = ViewContext.RouteData.Values["controller"]?.ToString() ?? "";
 
     string Active(string ctrl) =>
@@ -35,6 +36,7 @@
                 <div class="nav-group-title">İletişim</div>
                 <a href="/Admin/Message/Index" class="sidebar-link @Active("Message")">
                     <i class="bx bx-envelope"></i><span>Mesajlar</span>
+@await Component.InvokeAsync(name: "_AdminLayoutUnreadMessageBadgeViewComponentPartial")
                 </a>
             </nav>
 
@@ -45,7 +47,9 @@
                 </a>
 
                 <div class="sidebar-user">
-                    <div class="user-avatar">BP</div>
+                    <div class="user-avatar">
+                    <img src="@Model.ImageUrl"/>
+                    </div>
                     <div class="overflow-hidden">
                         <div class="fw-semibold text-white text-truncate" style="font-size: 0.83rem;">Berkay PEHLİVAN</div>
                         <div style="font-size: 0.7rem; color: var(--mint); opacity: .7;">Yönetici</div>

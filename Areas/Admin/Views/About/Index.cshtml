@@ -5,24 +5,20 @@
 }
 
 <div class="container-fluid px-0 py-3">
-
+<div class="pd-page-header">
+    <div class="pd-header-left">
+        <div class="pd-header-icon">
+            <i class="bx bx-user"></i>
+        </div>
+        <div class="pd-header-text">
+            <h1 class="pd-title">Hakkımda</h1>
+            <p class="pd-subtitle">Kişisel bilgilerinizi, profil görselinizi ve ziyaretçilere sunacağınız biyografinizi buradan güncelleyin.</p>
+        </div>
+    </div>
+</div>
     <div class="card border-0 shadow-sm rounded-4">
-        <form asp-area="Admin" asp-controller="About" asp-action="Index" method="post">
-
-            <div class="card-header bg-transparent border-bottom p-4">
-                <div class="d-flex align-items-center gap-3">
-                    <div class="d-flex align-items-center justify-content-center bg-primary bg-opacity-10 text-primary rounded-3 flex-shrink-0" style="width: 44px; height: 44px; font-size: 1.25rem;">
-                                            <div class="pd-ico danger">👤</div>
-
-                     </div>
-                    <div>
-                        <h5 class="fw-bold text-dark mb-0 fs-6">Kişisel Bilgiler</h5>
-                        <small class="text-muted">Public sayfadaki profil kartı ve biyografi bu bilgilerden oluşur.</small>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card-body p-4">
+        <form asp-area="Admin" asp-controller="About" asp-action="Index" method="post" enctype="multipart/form-data">
+                        <div class="card-body p-4">
                 <div class="row g-3">
 
                     <div class="col-md-6">
@@ -36,8 +32,8 @@
                     </div>
 
                     <div class="col-md-6">
-                        <label asp-for="Expertise" class="form-label fw-semibold small text-dark">Uzmanlık <span class="text-danger">*</span></label>
-                        <input asp-for="Expertise" class="form-control rounded-3" placeholder="Örn: Full Stack Web Development" required />
+                        <label asp-for="Education" class="form-label fw-semibold small text-dark">Eğitim <span class="text-danger">*</span></label>
+                        <input asp-for="Education" class="form-control rounded-3" placeholder="Örn: Bilgisayar Mühendisi" required />
                     </div>
 
                     <div class="col-md-6">
@@ -56,14 +52,47 @@
                     </div>
 
                     <div class="col-md-6">
-                        <label asp-for="ImageUrl" class="form-label fw-semibold small text-dark">Profil Görseli (URL) <span class="text-danger">*</span></label>
-                        <input asp-for="ImageUrl" class="form-control rounded-3" placeholder="https://ornek.com/foto.jpg" required />
+                        <label class="form-label fw-semibold small text-dark">
+                            Profil Görseli
+                        </label>
+
+                        <input type="file"
+                               name="ImageFile"
+                               class="form-control rounded-3"
+                               accept=".jpg,.jpeg,.png,.webp" />
+
+                        <div class="form-text small">
+                            JPG, PNG veya WEBP. Maksimum 5 MB.
+                        </div>
+
+                        @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                        {
+                            <div class="mt-3">
+                                <img src="@Model.ImageUrl"
+                                     alt="Profil görseli"
+                                     class="rounded-3 border"
+                                     style="width: 120px; height: 120px; object-fit: cover;" />
+                            </div>
+                        }
                     </div>
 
-                    <div class="col-md-6">
-                        <label asp-for="CvUrl" class="form-label fw-semibold small text-dark">CV Bağlantısı <span class="text-danger">*</span></label>
-                        <input asp-for="CvUrl" class="form-control rounded-3" placeholder="https://drive.google.com/..." required />
-                    </div>
+<div class="col-md-6">
+    <label class="form-label fw-semibold small text-dark">CV Dosyası (PDF)</label>
+    <input type="file"
+           name="CvFile"
+           class="form-control rounded-3"
+           accept=".pdf" />
+    <div class="form-text small">Sadece PDF formatı kabul edilir.</div>
+
+    @if (!string.IsNullOrEmpty(Model?.CvUrl))
+    {
+        <div class="mt-2">
+            <a href="@Model.CvUrl" target="_blank" class="btn btn-sm btn-outline-secondary rounded-3">
+                <i class="bi bi-file-earmark-pdf"></i> Mevcut CV'yi Görüntüle
+            </a>
+        </div>
+    }
+</div>
 
                     <div class="col-12">
                         <label asp-for="Description" class="form-label fw-semibold small text-dark">Biyografi <span class="text-danger">*</span></label>

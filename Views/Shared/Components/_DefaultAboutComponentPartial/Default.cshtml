@@ -1,23 +1,23 @@
-﻿      <section id="about" class="alt">
+﻿@model MYAcademy_Portfolio.Entities.About
+
+<section id="about" class="alt">
         <div class="container">
             <div class="sec-head"><h2 class="sec-title">Hakkımda</h2></div>
 
             <div class="row g-5 align-items-stretch">
                 <div class="col-lg-7">
-                    <p class="about-lead mb-4">Merhaba, ben Berkay PEHLİVAN. Yazılım geliştirme, sistem tasarımı ve modern web teknolojilerine ilgi duyan bir bilgisayar mühendisiyim. Üniversite yıllarında başladığım yazılım geliştirme yolculuğumu, profesyonel projeler ve sürekli öğrenme yaklaşımıyla ilerletiyorum.</p>
-                    <p class="text-secondary mb-3">Özellikle web uygulamaları, backend sistemleri, veritabanı tasarımı ve kullanıcı deneyimine odaklanıyorum. Karmaşık problemleri sade ve sürdürülebilir çözümlere dönüştürmekten keyif alıyorum.</p>
-                    <p class="text-secondary mb-0">Yeni teknolojileri keşfetmeyi, ekip çalışmalarında sorumluluk üstlenmeyi ve her projede kendimi geliştirmeyi önemsiyorum.</p>
-                </div>
+                    <p class="about-lead mb-4">@Model.Description</p>
+                    </div>
 
                 <div class="col-lg-5">
                     <div class="info-card">
                         <h3 class="fs-5 mb-4">Kişisel Bilgiler</h3>
                         <div class="info-rows">
-                            <div class="info-row"><div class="ico"><i class="bi bi-person"></i></div><div><div class="info-label">Ad Soyad</div><div class="info-value">Berkay PEHLİVAN</div></div></div>
-                            <div class="info-row"><div class="ico"><i class="bi bi-briefcase"></i></div><div><div class="info-label">Meslek</div><div class="info-value">Bilgisayar Mühendisi</div></div></div>
-                            <div class="info-row"><div class="ico"><i class="bi bi-geo-alt"></i></div><div><div class="info-label">Konum</div><div class="info-value">İstanbul, Türkiye</div></div></div>
-                            <div class="info-row"><div class="ico"><i class="bi bi-layers"></i></div><div><div class="info-label">Uzmanlık</div><div class="info-value">Full Stack Web Development</div></div></div>
-                            <div class="info-row"><div class="ico"><i class="bi bi-envelope"></i></div><div><div class="info-label">E-posta</div><div class="info-value">Berkay.PEHLİVAN@example.com</div></div></div>
+                            <div class="info-row"><div class="ico"><i class="bi bi-person"></i></div><div><div class="info-label">Ad Soyad</div><div class="info-value">@Model.FirstLastName</div></div></div>
+                            <div class="info-row"><div class="ico"><i class="bi bi-briefcase"></i></div><div><div class="info-label">Meslek</div><div class="info-value">@Model.Education</div></div></div>
+                        <div class="info-row"><div class="ico"><i class="bi bi-geo-alt"></i></div><div><div class="info-label">Konum</div><div class="info-value">@Model.Location</div></div></div>
+                        <div class="info-row"><div class="ico"><i class="bi bi-layers"></i></div><div><div class="info-label">Uzmanlık</div><div class="info-value">@Model.JobTitle</div></div></div>
+                        <div class="info-row"><div class="ico"><i class="bi bi-envelope"></i></div><div><div class="info-label">E-posta</div><div class="info-value">@Model.Email</div></div></div>
                         </div>
                     </div>
                 </div>

@@ -24,7 +24,7 @@
                 {
                     <div class="col-lg-4 col-md-6 project-item" data-category="@item.Category.CategoryName">
                         <div class="project-card">
-                            <div class="project-thumb"><img src="@item.CoverImageUrl" alt="@item.Title" loading="lazy" /></div>
+                            <div class="project-thumb"><img src="@item.CoverImageUrl" alt="@item.Title" loading="lazy"/></div>
                             <div class="project-body">
                                 <span class="pill pill-green mb-3 align-self-start">@item.Category.CategoryName</span>
                                 <h3 class="fs-5 mb-2">@item.Title</h3>
@@ -32,9 +32,16 @@
                                 <div class="mb-3">
                                     <span class="tag">ASP.NET Core</span><span class="tag">EF Core</span><span class="tag">SQL Server</span><span class="tag">Bootstrap</span>
                                 </div>
-                                <div class="project-footer">
+                            <div class="project-footer">
+                            @if (!string.IsNullOrWhiteSpace(item.GithubUrl))
+                            {
                                     <a href="@item.GithubUrl" target="_blank" rel="noopener noreferrer" class="project-link"><i class="bi bi-github"></i> GitHub</a>
-                                    <a href="#projects" class="project-link"><i class="bi bi-box-arrow-up-right"></i> Canlı Demo</a>
+                            }
+                                                        @if (!string.IsNullOrWhiteSpace(item.LiveDemoUrl))
+                                {
+                                    
+                                <a href="@item.LiveDemoUrl" class="project-link"><i class="bi bi-box-arrow-up-right"></i> Canlı Demo</a>
+                                }
                                 </div>
                             </div>
                         </div>

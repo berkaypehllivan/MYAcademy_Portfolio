@@ -9,69 +9,80 @@
 
     <div class="row g-4">
         <div class="col-lg-12">
-            <div class="card border-0 shadow-sm rounded-4">
+            <input type="hidden" asp-for="EducationId" />
+            <div class="pd-page-header">
+                <div class="pd-header-left">
+                    <div class="pd-header-icon">
+                        <i class="bx bx-education"></i>
+                    </div>
+                    <div class="pd-header-text">
+                        <h1 class="pd-title">@(isUpdate ? "Eğitim Bilgisini Güncelle" : "Yeni Eğitim Ekle")</h1>
+                        <p class="pd-subtitle">Akademik bilgilerinizi, mezuniyet durumlarınızı ve eğitim hayatınızdaki
+                            önemli dönüm noktalarını düzenleyin.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card border-0 shadow-sm rounded-4">
                 
-                <!-- DİNAMİK FORM ACTION -->
-                <form asp-area="Admin" asp-controller="Education" asp-action="@(isUpdate ? "Update" : "Create")" method="post">
+                    <!-- DİNAMİK FORM ACTION -->
+                    <form asp-area="Admin" asp-controller="Education" asp-action="@(isUpdate ? "Update" : "Create")"
+                          method="post">
                     
-                    <!-- GÜNCELLEME İÇİN GİZLİ ALAN -->
-                    <input type="hidden" asp-for="EducationId" />
+                        <!-- GÜNCELLEME İÇİN GİZLİ ALAN -->
+                        <div class="card-body p-4">
+                            <div asp-validation-summary="ModelOnly" class="alert alert-danger py-2 small mb-3"></div>
 
-                    <div class="card-header bg-transparent border-bottom p-4">
-                        <div class="d-flex align-items-center gap-3">
-                            <div class="d-flex align-items-center justify-content-center bg-primary bg-opacity-10 text-primary rounded-3 flex-shrink-0" style="width: 44px; height: 44px; font-size: 1.25rem;">
-                                🎓
-                            </div>
-                            <div>
-                            <h5 class="fw-bold text-dark mb-0 fs-6">@(isUpdate ? "Eğitim Bilgisini Güncelle" : "Yeni Eğitim Ekle")</h5>
-                                <small class="text-muted">Eğitim ve akademik geçmiş detaylarınızı buradan yönetebilirsiniz.</small>
+                            <div class="row g-3">
+                                <!-- Kurum (Başlık) -->
+                                <div class="col-md-6">
+                                    <label asp-for="Title" class="form-label fw-semibold small text-dark">Kurum Adı / Başlık
+                                        <span class="text-danger">*</span></label>
+                                        <input asp-for="Title" class="form-control rounded-3"
+                                               placeholder="Örn: Marmara Üniversitesi" required />
+                                    </div>
+
+                                    <!-- Bölüm (Alt Başlık) -->
+                                    <div class="col-md-6">
+                                        <label asp-for="SubTitle" class="form-label fw-semibold small text-dark">Bölüm / Alt
+                                            Başlık</label>
+                                            <input asp-for="SubTitle" class="form-control rounded-3"
+                                                   placeholder="Örn: Bilgisayar Mühendisliği — Lisans" />
+                                        </div>
+
+                                        <!-- Tarih/Süre -->
+                                        <div class="col-md-6">
+                                            <label asp-for="Duration" class="form-label fw-semibold small text-dark">Eğitim Süresi
+                                                <span class="text-danger">*</span></label>
+                                                <input asp-for="Duration" class="form-control rounded-3" placeholder="Örn: 2020 - 2024"
+                                                       required />
+                                            </div>
+
+                                            <!-- Konum -->
+                                            <div class="col-md-6">
+                                                <label asp-for="Location" class="form-label fw-semibold small text-dark">Konum</label>
+                                                <input asp-for="Location" class="form-control rounded-3"
+                                                       placeholder="Örn: İstanbul, Türkiye" />
+                                            </div>
+
+                                            <!-- Açıklama -->
+                                            <div class="col-12">
+                                                <label asp-for="Description" class="form-label fw-semibold small text-dark">Açıklama
+                                                    <span class="text-danger">*</span></label>
+                                                    <textarea asp-for="Description" class="form-control rounded-3" rows="4"
+                                                              placeholder="Alınan dersler veya akademik kazanımlardan bahsedin..."
+                                                              required></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="card-footer bg-light border-top p-3 d-flex justify-content-end gap-2 rounded-bottom-4">
+                                            <a asp-area="Admin" asp-controller="Education" asp-action="Index"
+                                               class="btn btn-outline-secondary rounded-3 px-3 py-2 fw-medium text-dark border-opacity-25">Vazgeç</a>
+                                            <button type="submit" class="btn btn-primary rounded-3 px-4 py-2 fw-medium">
+                                                @(isUpdate ? "Değişiklikleri Kaydet" : "Eğitimi Kaydet")
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="card-body p-4">
-                        <div asp-validation-summary="ModelOnly" class="alert alert-danger py-2 small mb-3"></div>
-
-                        <div class="row g-3">
-                            <!-- Kurum (Başlık) -->
-                            <div class="col-md-6">
-                                <label asp-for="Title" class="form-label fw-semibold small text-dark">Kurum Adı / Başlık <span class="text-danger">*</span></label>
-                                <input asp-for="Title" class="form-control rounded-3" placeholder="Örn: Marmara Üniversitesi" required />
-                            </div>
-
-                            <!-- Bölüm (Alt Başlık) -->
-                            <div class="col-md-6">
-                                <label asp-for="SubTitle" class="form-label fw-semibold small text-dark">Bölüm / Alt Başlık</label>
-                                <input asp-for="SubTitle" class="form-control rounded-3" placeholder="Örn: Bilgisayar Mühendisliği — Lisans" />
-                            </div>
-
-                            <!-- Tarih/Süre -->
-                            <div class="col-md-6">
-                                <label asp-for="Duration" class="form-label fw-semibold small text-dark">Eğitim Süresi <span class="text-danger">*</span></label>
-                                <input asp-for="Duration" class="form-control rounded-3" placeholder="Örn: 2020 - 2024" required />
-                            </div>
-
-                            <!-- Konum -->
-                            <div class="col-md-6">
-                                <label asp-for="Location" class="form-label fw-semibold small text-dark">Konum</label>
-                                <input asp-for="Location" class="form-control rounded-3" placeholder="Örn: İstanbul, Türkiye" />
-                            </div>
-
-                            <!-- Açıklama -->
-                            <div class="col-12">
-                                <label asp-for="Description" class="form-label fw-semibold small text-dark">Açıklama <span class="text-danger">*</span></label>
-                                <textarea asp-for="Description" class="form-control rounded-3" rows="4" placeholder="Alınan dersler veya akademik kazanımlardan bahsedin..." required></textarea>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card-footer bg-light border-top p-3 d-flex justify-content-end gap-2 rounded-bottom-4">
-                        <a asp-area="Admin" asp-controller="Education" asp-action="Index" class="btn btn-outline-secondary rounded-3 px-3 py-2 fw-medium text-dark border-opacity-25">Vazgeç</a>
-                        <button type="submit" class="btn btn-primary rounded-3 px-4 py-2 fw-medium">
-                            @(isUpdate ? "Değişiklikleri Kaydet" : "Eğitimi Kaydet")
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-        </div>

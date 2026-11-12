@@ -8,81 +8,103 @@
 <div class="container-fluid px-0 py-3">
 
     <div class="row g-4">
+
         <div class="col-lg-12">
-            <div class="card border-0 shadow-sm rounded-4">
-                
-                <form asp-area="Admin" asp-controller="Project" asp-action="Create" method="post">
-                    
-                    <input type="hidden" asp-for="ProjectId" />
-
-                    <div class="card-header bg-transparent border-bottom p-4">
-                        <div class="d-flex align-items-center gap-3">
-                            <div class="d-flex align-items-center justify-content-center bg-primary bg-opacity-10 text-primary rounded-3 flex-shrink-0" style="width: 44px; height: 44px; font-size: 1.25rem;">
-                                <div class="pd-ico forest">🧩</div>
-                            </div>
-                            <div>
-                                <h5 class="fw-bold text-dark mb-0 fs-6">@(isUpdate ? "Projeyi Güncelle" : "Yeni Proje Ekle")</h5>
-                                <small class="text-muted">Portfolyonuzda görünecek proje detaylarını buradan yönetebilirsiniz.</small>
-                            </div>
+            <input type="hidden" asp-for="ProjectId" />
+            <div class="pd-page-header">
+                <div class="pd-header-left">
+                    <div class="pd-header-icon">
+                        <div class="pd-ico forest">🧩</div>
+                    </div>
+                    <div class="pd-header-text">
+                        <h1 class="pd-title">@(isUpdate ? "Projeyi Güncelle" : "Yeni Proje Ekle")</h1>
+                        <p class="pd-subtitle">Geliştirdiğiniz yazılım projelerini, kullandığınız teknolojileri ve demo
+                            bağlantılarını sergileyerek çalışmalarınızı öne çıkarın.</p>
                         </div>
                     </div>
-
-                    <div class="card-body p-4">
-                        <div class="row g-3">
+                </div>
+                <div class="card border-0 shadow-sm rounded-4">
+                    <form asp-area="Admin" asp-controller="Project" asp-action="Create" method="post">
+                        <div class="card-body p-4">
+                            <div class="row g-3">
                             
-                            <!-- Proje Adı -->
-                            <div class="col-md-6">
-                                <label asp-for="Title" class="form-label fw-semibold small text-dark">Proje Adı <span class="text-danger">*</span></label>
-                                <input asp-for="Title" class="form-control rounded-3" placeholder="Örn: E-Commerce Pro" required />
-                            </div>
+                                <!-- Proje Adı -->
+                                <div class="col-md-6">
+                                    <label asp-for="Title" class="form-label fw-semibold small text-dark">Proje Adı <span
+                                        class="text-danger">*</span></label>
+                                        <input asp-for="Title" class="form-control rounded-3" placeholder="Örn: E-Commerce Pro"
+                                               required />
+                                    </div>
 
-                            <!-- Kategori Seçimi (DROPDOWN) -->
-                            <div class="col-md-6">
-                                <label asp-for="CategoryId" class="form-label fw-semibold small text-dark">Kategori Seçin <span class="text-danger">*</span></label>
-                                <select asp-for="CategoryId" asp-items="ViewBag.CategoryList" class="form-select rounded-3" required>
-                                    <option value="">-- Lütfen bir kategori seçin --</option>
-                                </select>
-                                <div class="form-text small mt-1">Eğer aradığınız kategori yoksa, listeleme sayfasına dönüp önce kategori ekleyin.</div>
-                            </div>
+                                    <!-- Kategori Seçimi (DROPDOWN) -->
+                                    <div class="col-md-6">
+                                        <label asp-for="CategoryId" class="form-label fw-semibold small text-dark">Kategori
+                                            Seçin <span class="text-danger">*</span></label>
+                                            <select asp-for="CategoryId" asp-items="ViewBag.CategoryList"
+                                                    class="form-select rounded-3" required>
+                                                <option value="">-- Lütfen bir kategori seçin --</option>
+                                            </select>
+                                            <div class="form-text small mt-1">Eğer aradığınız kategori yoksa, listeleme sayfasına
+                                                dönüp önce kategori ekleyin.</div>
+                                            </div>
 
-                            <!-- Etiketler (Keywords) -->
-                            <div class="col-12">
-                                <label asp-for="Keywords" class="form-label fw-semibold small text-dark">Kullanılan Teknolojiler (Etiketler)</label>
-                                <input asp-for="Keywords" class="form-control rounded-3" placeholder="Örn: ASP.NET Core, EF Core, SQL Server (Virgülle ayırın)" />
-                            </div>
+                                            <!-- Etiketler (Keywords) -->
+                                            <div class="col-12">
+                                                <label asp-for="Keywords" class="form-label fw-semibold small text-dark">Kullanılan
+                                                    Teknolojiler (Etiketler)</label>
+                                                    <input asp-for="Keywords" class="form-control rounded-3"
+                                                           placeholder="Örn: ASP.NET Core, EF Core, SQL Server (Virgülle ayırın)" />
+                                                </div>
 
-                            <!-- GitHub URL -->
-                            <div class="col-md-6">
-                                <label asp-for="GithubUrl" class="form-label fw-semibold small text-dark">GitHub Bağlantısı</label>
-                                <input asp-for="GithubUrl" class="form-control rounded-3" placeholder="https://github.com/kullanici/proje" />
-                            </div>
+                                                <!-- GitHub URL -->
+                                                <div class="col-md-6">
+                                                    <label asp-for="GithubUrl" class="form-label fw-semibold small text-dark">GitHub
+                                                        Bağlantısı</label>
+                                                        <input asp-for="GithubUrl" class="form-control rounded-3"
+                                                               placeholder="https://github.com/kullanici/proje" />
+                                                    </div>
 
-                            <!-- Canlı Demo URL -->
-                            <div class="col-md-6">
-                                <label asp-for="LiveDemoUrl" class="form-label fw-semibold small text-dark">Canlı Demo Bağlantısı</label>
-                                <input asp-for="LiveDemoUrl" class="form-control rounded-3" placeholder="https://www.projem.com" />
-                            </div>
-                            <!-- Kapak Görseli URL -->
-                            <div class="col-12">
-                                <label asp-for="CoverImageUrl" class="form-label fw-semibold small text-dark">Proje Kapak Görseli (URL)</label>
-                                <input asp-for="CoverImageUrl" class="form-control rounded-3" placeholder="https://ornek.com/gorsel.png" />
-                            </div>
-                            <!-- Açıklama -->
-                            <div class="col-12">
-                                <label asp-for="Description" class="form-label fw-semibold small text-dark">Proje Açıklaması <span class="text-danger">*</span></label>
-                                <textarea asp-for="Description" class="form-control rounded-3" rows="4" placeholder="Projenin işlevini ve amacını kısaca anlatın..." required></textarea>
-                            </div>
-                        </div>
-                    </div>
+                                                    <!-- Canlı Demo URL -->
+                                                    <div class="col-md-6">
+                                                        <label asp-for="LiveDemoUrl" class="form-label fw-semibold small text-dark">Canlı Demo
+                                                            Bağlantısı</label>
+                                                            <input asp-for="LiveDemoUrl" class="form-control rounded-3"
+                                                                   placeholder="https://www.projem.com" />
+                                                        </div>
+                                                        <!-- Kapak Görseli URL -->
+                                                        <div class="col-6">
+                                                            <label asp-for="CoverImageUrl" class="form-label fw-semibold small text-dark">Proje
+                                                                Kapak Görseli (URL)</label>
+                                                                <input asp-for="CoverImageUrl" class="form-control rounded-3"
+                                                                       placeholder="https://ornek.com/gorsel.png" />
+                                                            </div>
+                                                            <div class="col-md-6 d-flex align-items-center mt-4">
+                                                                <div class="form-check form-switch mt-3">
+                                    
+                                                                    <label asp-for="IsActive" class="form-label fw-semibold small text-dark">Aktif -
+                                                                        Pasif (Anasayfada Göster - Gizle)</label>
+                                                                        <input class="form-check-input" type="checkbox" asp-for="IsActive" role="switch">
+                                                                    </div>
+                                                                </div>
+                                                                <!-- Açıklama -->
+                                                                <div class="col-12">
+                                                                    <label asp-for="Description" class="form-label fw-semibold small text-dark">Açıklama
+                                                                        <span class="text-danger">*</span></label>
+                                                                        <textarea asp-for="Description" class="form-control rounded-3" rows="4"
+                                                                                  placeholder="Projenin işlevini ve amacını kısaca anlatın..." required></textarea>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
 
-                    <div class="card-footer bg-light border-top p-3 d-flex justify-content-end gap-2 rounded-bottom-4">
-                        <a asp-area="Admin" asp-controller="Project" asp-action="Index" class="btn btn-outline-secondary rounded-3 px-3 py-2 fw-medium text-dark border-opacity-25">Vazgeç</a>
-                        <button type="submit" class="btn btn-primary rounded-3 px-4 py-2 fw-medium">
-                            @(isUpdate ? "Değişiklikleri Kaydet" : "Projeyi Kaydet")
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
+                                                            <div class="card-footer bg-light border-top p-3 d-flex justify-content-end gap-2 rounded-bottom-4">
+                                                                <a asp-area="Admin" asp-controller="Project" asp-action="Index"
+                                                                   class="btn btn-outline-secondary rounded-3 px-3 py-2 fw-medium text-dark border-opacity-25">Vazgeç</a>
+                                                                <button type="submit" class="btn btn-primary rounded-3 px-4 py-2 fw-medium">
+                                                                    @(isUpdate ? "Değişiklikleri Kaydet" : "Projeyi Kaydet")
+                                                                </button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
 
-</div>
+                                            </div>

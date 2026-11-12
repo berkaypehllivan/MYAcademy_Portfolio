@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MYAcademy_Portfolio.Context;
-using MYAcademy_Portfolio.Entities;
 
 namespace MYAcademy_Portfolio.Areas.Admin.Controllers;
 
@@ -28,16 +27,6 @@ public class MessageController : Controller
     public IActionResult Create() => View();
 
     [HttpPost]
-    public async Task<IActionResult> Create(Message message)
-    {
-        message.SendDate = DateTime.Now;
-        message.IsRead = false;
-        _context.Messages.Add(message);
-        await _context.SaveChangesAsync();
-        return RedirectToAction("Index");
-    }
-
-    [HttpPost]
     public async Task<IActionResult> MarkAsRead(int id)
     {
         var message = await _context.Messages.FindAsync(id);
@@ -61,7 +50,7 @@ public class MessageController : Controller
             _context.SaveChanges();
             TempData["Success"] = "Mesaj Başarıyla Silindi.";
         }
-        return RedirectToAction("MessageList");
+        return RedirectToAction("Index");
     }
 
 }

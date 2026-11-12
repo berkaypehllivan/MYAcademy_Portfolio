@@ -8,6 +8,19 @@
 </script>
 
 <script>
+    function decreaseUnreadBadge() {
+    const badge = document.getElementById('sidebarUnreadBadge');
+    if (!badge) return;
+
+    const count = Math.max(0, parseInt(badge.dataset.count) - 1);
+    badge.dataset.count = count;
+    badge.textContent = count > 99 ? '99+' : count;
+    badge.classList.toggle('d-none', count === 0);
+}
+
+</script>
+
+<script>
 document.addEventListener('click', function (e) {
     const btn = e.target.closest('.btn-delete');
     if (!btn) return;

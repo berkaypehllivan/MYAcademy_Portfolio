@@ -1,0 +1,5 @@
+﻿@model int
+
+<span id="sidebarUnreadBadge"
+      class="badge rounded-pill bg-danger ms-auto @(Model == 0 ? "d-none" : "")"
+      data-count="@Model">@(Model > 99 ? "99+" : Model.ToString())</span>

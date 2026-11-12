@@ -5,22 +5,19 @@
 }
 
 <div class="container-fluid px-0 py-3">
-
+<div class="pd-page-header">
+    <div class="pd-header-left">
+        <div class="pd-header-icon">
+            <i class="bx bx-phone"></i>
+        </div>
+        <div class="pd-header-text">
+            <h1 class="pd-title">İletişim Bilgileri</h1>
+            <p class="pd-subtitle">Ziyaretçilerin size ulaşabileceği e-posta, telefon, adres ve sosyal medya bağlantılarınızı yönetin.</p>
+        </div>
+    </div>
+</div>
     <div class="card border-0 shadow-sm rounded-4">
         <form asp-area="Admin" asp-controller="Contact" asp-action="Index" method="post">
-
-            <div class="card-header bg-transparent border-bottom p-4">
-                <div class="d-flex align-items-center gap-3">
-                    <div class="d-flex align-items-center justify-content-center bg-primary bg-opacity-10 text-primary rounded-3 flex-shrink-0" style="width: 44px; height: 44px; font-size: 1.25rem;">
-                        📞
-                    </div>
-                    <div>
-                        <h5 class="fw-bold text-dark mb-0 fs-6">İletişim Bilgileri</h5>
-                        <small class="text-muted">Public sayfadaki iletişim kısmı bu bilgilerden oluşur.</small>
-                    </div>
-                </div>
-            </div>
-
             <div class="card-body p-4">
                 <div class="row g-3">
 
@@ -48,18 +45,7 @@
                         <label asp-for="Github" class="form-label fw-semibold small text-dark">Github <span class="text-danger">*</span></label>
                         <input asp-for="Github" class="form-control rounded-3" placeholder="https://github.com/username" required />
                     </div>
-
-                    <div class="col-md-6">
-                        <label asp-for="SubDescription" class="form-label fw-semibold small text-dark">Alt Başlık <span class="text-danger">*</span></label>
-                        <input asp-for="SubDescription" class="form-control rounded-3" placeholder="Genellikle 24 saat içerisinde yanıt verilir." required />
-                    </div>
-
-                    <div class="col-12">
-                        <label asp-for="Description" class="form-label fw-semibold small text-dark">Açıklama <span class="text-danger">*</span></label>
-                        <textarea asp-for="Description" class="form-control rounded-3" rows="4" required></textarea>
-                    </div>
-
-                </div>
+                                    </div>
             </div>
 
             <div class="card-footer bg-light border-top p-3 d-flex justify-content-end rounded-bottom-4">

@@ -14,11 +14,15 @@ public class _DefaultHeroSectionComponentPartial : ViewComponent
 
     public IViewComponentResult Invoke()
     {
-        var values = _context.HeroSections.FirstOrDefault();
-        ViewBag.v1 = values.Title;
-        ViewBag.v2 = values.SubTitle;
-        ViewBag.v3 = values.Description;
-        ViewBag.v4 = values.ImageUrl;
+        var about = _context.Abouts.FirstOrDefault();
+        var contact = _context.Contacts.FirstOrDefault();
+
+        ViewBag.FirstLastName = about!.FirstLastName;
+        ViewBag.JobTitle = about.JobTitle;
+        ViewBag.ImageUrl = about.ImageUrl;
+        ViewBag.Github = contact?.Github;
+        ViewBag.Linkedin = contact?.Linkedin;
+
         return View();
     }
 }

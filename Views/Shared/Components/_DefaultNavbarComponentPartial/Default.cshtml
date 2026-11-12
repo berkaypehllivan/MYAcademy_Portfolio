@@ -6,15 +6,15 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarContent">
                     <ul class="navbar-nav gap-1">
-                        <li class="nav-item"><a class="nav-link active" href="#home">Ana Sayfa</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#about">Hakkımda</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#education">Eğitim Hayatım</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#experience">Deneyimlerim</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#skills">Yeteneklerim</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#projects">Projelerim</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#contact">İletişim</a></li>
+                        <li class="nav-item"><a class="nav-link active" href="/Default/Index" data-section="home">Ana Sayfa</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/About" data-section="about">Hakkımda</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/Education" data-section="education">Eğitim Hayatım</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/Experience" data-section="experience">Deneyimlerim</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/Skills" data-section="skills">Yeteneklerim</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/Projects" data-section="projects">Projelerim</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/Contact" data-section="contact">İletişim</a></li>
                     </ul>
-                    <a href="#contact" class="btn-main ms-lg-2 mt-2 mt-lg-0" id="btnDownloadCv">
+                    <a href="@ViewBag.CvUrl" class="btn-main ms-lg-2 mt-2 mt-lg-0" id="btnDownloadCv">
                         <i class="bi bi-file-earmark-arrow-down"></i> CV İndir
                     </a>
                 </div>

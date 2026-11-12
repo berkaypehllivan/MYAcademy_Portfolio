@@ -1,71 +1,62 @@
-    <section id="experience" class="alt">
-        <div class="container">
-            <div class="sec-head">
-                <h2 class="sec-title">Deneyimlerim</h2>
-                <p class="sec-sub">Gerçek dünya problemlerini çözerken edindiğim tecrübeler.</p>
-            </div>
+@model List<MYAcademy_Portfolio.Entities.Experience>
 
-            <div class="exp-card current">
-                <div class="row g-4">
-                    <div class="col-lg-4">
-                        <span class="pill pill-green mb-3"><i class="bi bi-calendar3"></i> 2024 – Günümüz</span>
-                        <h3 class="fs-5 mb-1">Software Engineer</h3>
-                        <div class="fw-semibold mb-1" style="color: var(--emerald);">NovaTech Solutions</div>
-                        <div class="text-secondary small mb-3">Kurumsal Web Çözümleri</div>
-                        <span class="pill pill-green">Tam Zamanlı</span>
-                    </div>
-                    <div class="col-lg-8">
-                        <ul class="exp-list">
-                            <li>ASP.NET Core ile ölçeklenebilir web uygulamaları geliştirme</li>
-                            <li>RESTful API geliştirme ve entegrasyonları</li>
-                            <li>SQL Server üzerinde veritabanı tasarımı ve optimizasyonu</li>
-                            <li>Yazılım geliştirme ekipleriyle Agile süreçlerde çalışma</li>
-                        </ul>
-                        <span class="tag">C#</span><span class="tag">ASP.NET Core</span><span class="tag">SQL Server</span><span class="tag">Entity Framework Core</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="exp-card">
-                <div class="row g-4">
-                    <div class="col-lg-4">
-                        <span class="pill pill-blue mb-3"><i class="bi bi-calendar3"></i> 2023 – 2024</span>
-                        <h3 class="fs-5 mb-1">Junior Software Developer</h3>
-                        <div class="fw-semibold mb-1" style="color: var(--emerald);">PixelWave Digital</div>
-                        <div class="text-secondary small mb-3">Dijital Ürün & Web Ajansı</div>
-                        <span class="pill pill-blue">Yarı Zamanlı</span>
-                    </div>
-                    <div class="col-lg-8">
-                        <ul class="exp-list">
-                            <li>Kurumsal web uygulamalarının geliştirilmesine katkı sağlama</li>
-                            <li>Backend servisleri ve frontend bileşenleri geliştirme</li>
-                            <li>Mevcut uygulamalarda performans iyileştirmeleri</li>
-                            <li>Kod inceleme ve hata giderme süreçlerine katılma</li>
-                        </ul>
-                        <span class="tag">C#</span><span class="tag">JavaScript</span><span class="tag">Bootstrap</span><span class="tag">PostgreSQL</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="exp-card">
-                <div class="row g-4">
-                    <div class="col-lg-4">
-                        <span class="pill pill-amber mb-3"><i class="bi bi-calendar3"></i> 2022</span>
-                        <h3 class="fs-5 mb-1">Software Development Intern</h3>
-                        <div class="fw-semibold mb-1" style="color: var(--emerald);">CodeBridge Technology</div>
-                        <div class="text-secondary small mb-3">Ar-Ge ve Yazılım Stajı</div>
-                        <span class="pill pill-amber">Staj</span>
-                    </div>
-                    <div class="col-lg-8">
-                        <ul class="exp-list">
-                            <li>Web uygulaması geliştirme süreçlerini deneyimleme</li>
-                            <li>Temel CRUD uygulamaları geliştirme</li>
-                            <li>Veritabanı işlemleri ve API kullanımını öğrenme</li>
-                            <li>Takım içi yazılım geliştirme süreçlerine katılma</li>
-                        </ul>
-                        <span class="tag">.NET</span><span class="tag">HTML5 / CSS3</span><span class="tag">JavaScript</span><span class="tag">Git</span>
-                    </div>
-                </div>
-            </div>
+<section id="experience" class="alt">
+    <div class="container">
+        <div class="sec-head">
+            <h2 class="sec-title">Deneyimlerim</h2>
+            <p class="sec-sub">Gerçek dünya problemlerini çözerken edindiğim tecrübeler.</p>
         </div>
-    </section>
+
+        @if (Model != null && Model.Any())
+        {
+            @foreach (var item in Model)
+            {
+                // Her satırı ayrı bir sorumluluk olarak böl, boş satırları at
+                var responsibilities = (item.Description ?? string.Empty)
+                    .Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+
+                <div class="exp-card">
+                    <div class="row g-4">
+                        <div class="col-lg-4">
+                            <span class="pill pill-amber mb-3"><i class="bi bi-calendar3"></i> @item.Duration</span>
+                            <h3 class="fs-5 mb-1">@item.Title</h3>
+                            <div class="fw-semibold mb-1" style="color: var(--emerald);">@item.CompanyName</div>
+
+                            @if (!string.IsNullOrWhiteSpace(item.SideTitle))
+                            {
+                                <div class="text-secondary small mb-3">@item.WorkType</div>
+                            }
+
+                            <div class="d-flex flex-wrap gap-2">
+                                @if (!string.IsNullOrWhiteSpace(item.SideTitle))
+                                {
+                                    <span class="pill pill-amber">@item.SideTitle</span>
+                                }
+                                @if (item.IsActive)
+                                {
+                                    <span class="pill pill-amber">Devam ediyor</span>
+                                }
+                            </div>
+                        </div>
+
+                        <div class="col-lg-8">
+                            @if (responsibilities.Length > 0)
+                            {
+                                <ul class="exp-list">
+                                    @foreach (var line in responsibilities)
+                                    {
+                                        <li>@line</li>
+                                    }
+                                </ul>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <p class="text-center text-secondary">Henüz deneyim bilgisi eklenmedi.</p>
+        }
+    </div>
+</section>

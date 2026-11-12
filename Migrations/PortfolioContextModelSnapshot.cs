@@ -38,11 +38,11 @@ namespace MYAcademy_Portfolio.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Email")
+                    b.Property<string>("Education")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Expertise")
+                    b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -96,10 +96,6 @@ namespace MYAcademy_Portfolio.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ContactId"));
 
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -117,10 +113,6 @@ namespace MYAcademy_Portfolio.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Phone")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SubDescription")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -200,35 +192,6 @@ namespace MYAcademy_Portfolio.Migrations
                     b.ToTable("Experiences");
                 });
 
-            modelBuilder.Entity("MYAcademy_Portfolio.Entities.HeroSection", b =>
-                {
-                    b.Property<int>("HeroSectionId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("HeroSectionId"));
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SubTitle")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("HeroSectionId");
-
-                    b.ToTable("HeroSections");
-                });
-
             modelBuilder.Entity("MYAcademy_Portfolio.Entities.Message", b =>
                 {
                     b.Property<int>("MessageId")
@@ -287,6 +250,9 @@ namespace MYAcademy_Portfolio.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Keywords")
                         .HasColumnType("nvarchar(max)");
 
@@ -315,6 +281,9 @@ namespace MYAcademy_Portfolio.Migrations
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Keywords")
                         .IsRequired()

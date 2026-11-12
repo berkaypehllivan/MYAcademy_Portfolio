@@ -9,52 +9,67 @@
 
     <div class="row g-4">
         <div class="col-lg">
-            <div class="card border-0 shadow-sm rounded-4">
+
+            <input type="hidden" asp-for="SkillId" />
+            <div class="pd-page-header">
+                <div class="pd-header-left">
+                    <div class="pd-header-icon">
+                        <i class="bx bx-code-alt"></i>
+                    </div>
+                    <div class="pd-header-text">
+                        <h1 class="pd-title">@(isUpdate ? "Yeteneği Güncelle" : "Yeni Yetenek Ekle")</h1>
+                        <p class="pd-subtitle">Sahip olduğunuz teknik becerileri, kullandığınız araçları ve uzmanlık
+                            alanlarınızı portfolyonuza ekleyin.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card border-0 shadow-sm rounded-4">
                 
-                <form asp-area="Admin" asp-controller="Skill" asp-action="@(isUpdate ? "Update" : "Create")" method="post">
+                    <form asp-area="Admin" asp-controller="Skill" asp-action="@(isUpdate ? "Update" : "Create")"
+                          method="post">
                     
-                    <input type="hidden" asp-for="SkillId" />
-
-                    <div class="card-header bg-transparent border-bottom p-4">
-                        <div class="d-flex align-items-center gap-3">
-                            <div class="d-flex align-items-center justify-content-center bg-primary bg-opacity-10 text-primary rounded-3 flex-shrink-0" style="width: 44px; height: 44px; font-size: 1.25rem;">
-                                <div class="pd-ico green">🛠</div>
-                            </div>
-                            <div>
-                                <h5 class="fw-bold text-dark mb-0 fs-6">@(isUpdate ? "Yeteneği Güncelle" : "Yeni Yetenek Grubu Ekle")</h5>
-                                <small class="text-muted">Teknoloji gruplarınızı (örn. Backend Development) buradan yönetebilirsiniz.</small>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card-body p-4">
-                        <div class="row g-3">
-                            <div class="col-12">
-                                <label asp-for="Title" class="form-label fw-semibold small text-dark">Grup Başlığı <span class="text-danger">*</span></label>
-                                <input asp-for="Title" class="form-control rounded-3" placeholder="Örn: Backend Development" required />
-                            </div>
+                        <div class="card-body p-4">
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <label asp-for="Title" class="form-label fw-semibold small text-dark">Grup Başlığı <span
+                                        class="text-danger">*</span></label>
+                                        <input asp-for="Title" class="form-control rounded-3"
+                                               placeholder="Örn: Backend Development" required />
+                                    </div>
                             
-                            <div class="col-12">
-                                <label asp-for="Keywords" class="form-label fw-semibold small text-dark">Alt Yetenekler (Keywords) <span class="text-danger">*</span></label>
-                                <input asp-for="Keywords" class="form-control rounded-3" placeholder="Örn: C#, ASP.NET Core, EF Core (Virgülle ayırın)" required />
-                                <div class="form-text small mt-1">Bu kelimeler liste sayfasında ve önyüzde şık rozetlere (chip) dönüşecektir. Lütfen aralarına virgül koyun.</div>
+                                    <div class="col-6">
+                                        <label asp-for="Keywords" class="form-label fw-semibold small text-dark">Alt Yetenekler
+                                            (Keywords) <span class="text-danger">*</span></label>
+                                            <input asp-for="Keywords" class="form-control rounded-3"
+                                                   placeholder="Örn: C#, ASP.NET Core, EF Core (Virgülle ayırın)" required />
+                                            <div class="form-text small mt-1">Bu kelimeler liste sayfasında ve önyüzde şık rozetlere
+                                                (chip) dönüşecektir. Lütfen aralarına virgül koyun.</div>
+                                            </div>
+                                            <div class="col-md-6 d-flex align-items-center mt-4">
+                                                <div class="form-check form-switch mt-3">
+                                                    <label asp-for="IsActive" class="form-label fw-semibold small text-dark">Aktif -
+                                                        Pasif (Anasayfada Göster - Gizle)</label>
+                                                        <input class="form-check-input" type="checkbox" asp-for="IsActive" role="switch">
+                                                    </div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <label asp-for="Description" class="form-label fw-semibold small text-dark">Açıklama
+                                                        <span class="text-danger">*</span></label>
+                                                        <textarea asp-for="Description" class="form-control rounded-3" rows="3"
+                                                                  placeholder="Örn: Güvenli, modüler ve yüksek performanslı sunucu taraflı mimariler."
+                                                                  required></textarea>
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    class="card-footer bg-light border-top p-3 d-flex justify-content-end gap-2 rounded-bottom-4">
+                                                    <a asp-area="Admin" asp-controller="Skill" asp-action="Index"
+                                                       class="btn btn-outline-secondary rounded-3 px-3 py-2 fw-medium text-dark border-opacity-25">Vazgeç</a>
+                                                    <button type="submit" class="btn btn-primary rounded-3 px-4 py-2 fw-medium">
+                                                        @(isUpdate ? "Değişiklikleri Kaydet" : "Yeteneği Kaydet")
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-
-                            <div class="col-12">
-                                <label asp-for="Description" class="form-label fw-semibold small text-dark">Açıklama <span class="text-danger">*</span></label>
-                                <textarea asp-for="Description" class="form-control rounded-3" rows="3" placeholder="Örn: Güvenli, modüler ve yüksek performanslı sunucu taraflı mimariler." required></textarea>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card-footer bg-light border-top p-3 d-flex justify-content-end gap-2 rounded-bottom-4">
-                        <a asp-area="Admin" asp-controller="Skill" asp-action="Index" class="btn btn-outline-secondary rounded-3 px-3 py-2 fw-medium text-dark border-opacity-25">Vazgeç</a>
-                        <button type="submit" class="btn btn-primary rounded-3 px-4 py-2 fw-medium" style="background-color: #4f46e5; border-color: #4f46e5;">
-                            @(isUpdate ? "Değişiklikleri Kaydet" : "Grubu Kaydet")
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-            </div>
-</div>

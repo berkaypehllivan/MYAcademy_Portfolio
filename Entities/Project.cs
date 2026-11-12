@@ -11,4 +11,6 @@ public class Project
     public string? LiveDemoUrl { get; set; }
     public int CategoryId { get; set; }
     public Category Category { get; set; }
+    public bool IsActive { get; set; }
+
 }

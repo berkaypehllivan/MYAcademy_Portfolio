@@ -1,9 +1,10 @@
-﻿    <section id="home">
+﻿
+<section id="home">
         <div class="container">
             <div class="row align-items-center g-5">
                 <div class="col-lg-7">
-                    <h1 class="hero-title">Merhaba, ben <span class="name">@ViewBag.v2</span>.</h1>
-                    <p class="hero-desc">@ViewBag.v3</p>
+                <h1 class="hero-title">Merhaba, ben <br /><span class="name">@ViewBag.FirstLastName</span></h1>
+                <p class="hero-desc">@ViewBag.JobTitle</p>
 
                     <div class="d-flex flex-wrap gap-3 mb-4">
                         <a href="#projects" class="btn-main"><i class="bi bi-grid-fill"></i> Projelerimi İncele</a>
@@ -11,9 +12,8 @@
                     </div>
 
                     <div class="d-flex align-items-center gap-2">
-                        <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="GitHub"><i class="bi bi-github"></i></a>
-                        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
-                        <a href="https://medium.com" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Medium"><i class="bi bi-medium"></i></a>
+                    <a href="@ViewBag.Github" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="GitHub"><i class="bi bi-github"></i></a>
+                        <a href="@ViewBag.Linkedin" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
                     <a class="social-btn" href="#contact"><i class="bi bi-envelope"></i></a>
                     </div>
                 </div>
@@ -21,7 +21,7 @@
                 <div class="col-lg-5">
                     <div class="portrait">
                         <div class="portrait-frame">
-                            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBM90nUmg17t1Rwdmp5syF7ybvObe2JCYXCRhb5SArxTW6Sb07gLuO9S-IukznIPZpOgF_fkiwKlbUQnj_f_Qyk9Cmk_hywN6N9uedVOLDslZjFUZly-H53T2h4pPYZCUpldpE8o6MEl4etmOYmOq5ewjDdvQPXDBaWoOMtjP7nTgIo_fnx7HSMO6foinZwMEJijjWucA0ZsTXsXk3pAMJF1xO7JuEpTrM4SqQNXksN3rtMwEh-HmVJ" alt="Berkay PEHLİVAN - Bilgisayar Mühendisi">
+                            <img src="@ViewBag.ImageUrl" alt="@ViewBag.FirstLastName">
                         </div>
                     </div>
                 </div>

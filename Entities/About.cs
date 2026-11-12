@@ -5,7 +5,7 @@ public class About
     public int AboutId { get; set; }
     public string FirstLastName { get; set; }
     public string JobTitle { get; set; }
-    public string Expertise { get; set; }
+    public string Education { get; set; }
     public string Description { get; set; }
     public string Email { get; set; }
     public string Phone { get; set; }

@@ -15,7 +15,6 @@ public class PortfolioContext : DbContext
     public DbSet<Experience> Experiences { get; set; }
     public DbSet<Message> Messages { get; set; }
     public DbSet<Contact> Contacts { get; set; }
-    public DbSet<HeroSection> HeroSections { get; set; }
     public DbSet<Category> Categories { get; set; }
     public DbSet<Project> Projects { get; set; }
     public DbSet<Skill> Skills { get; set; }

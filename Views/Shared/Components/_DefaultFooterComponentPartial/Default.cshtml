@@ -1,9 +1,9 @@
-    <footer>
+<footer>
         <div class="container">
             <div class="row g-4 align-items-center">
                 <div class="col-lg-4 text-center text-lg-start">
-                    <div class="fw-bold">Berkay PEHLİVAN</div>
-                    <div class="text-secondary small">Bilgisayar Mühendisi</div>
+                    <div class="fw-bold">@ViewBag.FirstLastName</div>
+                    <div class="text-secondary small">@ViewBag.JobTitle</div>
                 </div>
                 <div class="col-lg-4 text-center">
                     <a href="#home" class="footer-link mx-2">Ana Sayfa</a>
@@ -13,14 +13,13 @@
                 </div>
                 <div class="col-lg-4 text-center text-lg-end">
                     <div class="d-inline-flex gap-2">
-                        <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="GitHub"><i class="bi bi-github"></i></a>
-                        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
-                        <a href="https://medium.com" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Medium"><i class="bi bi-medium"></i></a>
+                        <a href="@ViewBag.Github" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="GitHub"><i class="bi bi-github"></i></a>
+                        <a href="@ViewBag.Linkedin" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
                     </div>
                 </div>
             </div>
             <hr class="opacity-25 my-4">
-            <p class="text-secondary small text-center mb-0">© 2026 Berkay PEHLİVAN. Tüm hakları saklıdır.</p>
+            <p class="text-secondary small text-center mb-0">© 2026 @ViewBag.FirstLastName. Tüm hakları saklıdır.</p>
         </div>
     </footer>
 
