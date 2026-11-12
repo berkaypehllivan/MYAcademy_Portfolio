@@ -5,13 +5,10 @@ using MYAcademy_Portfolio.Entities;
 namespace MYAcademy_Portfolio.Areas.Admin.Controllers;
 
 [Area("Admin")]
-public class ContactController : Controller
+public class ContactController : BaseController
 {
-    private readonly PortfolioContext _context;
-
-    public ContactController(PortfolioContext context)
+    public ContactController(PortfolioContext context, IWebHostEnvironment env) : base(context, env)
     {
-        _context = context;
     }
 
     [HttpGet]
@@ -24,13 +21,26 @@ public class ContactController : Controller
     [HttpPost]
     public IActionResult Index(Contact contact)
     {
+
         if (!ModelState.IsValid)
             return View(contact);
 
-        _context.Contacts.Update(contact);
-        _context.SaveChanges();
-        TempData["Success"] = "İletişim Bilgileri Başarıyla Güncellendi.";
+        var existing = _context.Contacts.Find(contact.ContactId);
 
+        if (existing is null)
+        {
+            TempData["Error"] = "Veri Bulunamadı.";
+            return RedirectToAction("Index");
+        }
+
+        existing.Email = contact.Email;
+        existing.Phone = contact.Phone;
+        existing.Location = contact.Location;
+        existing.Linkedin = contact.Linkedin;
+        existing.Github = contact.Github;
+
+        _context.SaveChanges();
+        TempData["Success"] = "İletişim Başarıyla Güncellendi.";
         return RedirectToAction("Index");
     }
 }

@@ -14,7 +14,7 @@ public class _DefaultProjectComponentPartial : ViewComponent
 
     public IViewComponentResult Invoke()
     {
-        var values = _context.Projects.Where(x => x.IsActive).ToList();
+        var values = _context.Projects.Where(x => x.IsActive).OrderBy(x => x.DisplayOrder).ToList();
         return View(values);
     }
 }

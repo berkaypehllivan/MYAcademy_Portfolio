@@ -5,13 +5,16 @@
                     <div class="fw-bold">@ViewBag.FirstLastName</div>
                     <div class="text-secondary small">@ViewBag.JobTitle</div>
                 </div>
-                <div class="col-lg-4 text-center">
-                    <a href="#home" class="footer-link mx-2">Ana Sayfa</a>
-                    <a href="#about" class="footer-link mx-2">Hakkımda</a>
-                    <a href="#projects" class="footer-link mx-2">Projelerim</a>
-                    <a href="#contact" class="footer-link mx-2">İletişim</a>
+                <div class="col-lg-6 text-center">
+                    <a href="/Default/Index" class="footer-link mx-1" data-section="home">Ana Sayfa</a>
+                    <a href="/About" class="footer-link mx-1" data-section="about">Hakkımda</a>
+                    <a href="/Education" class="footer-link mx-1" data-section="education">Eğitim Hayatım</a>
+                    <a href="/Experience" class="footer-link mx-1" data-section="experience">Deneyimlerim</a>
+                    <a href="/Skills" class="footer-link mx-1" data-section="skills">Yeteneklerim</a>
+                    <a href="/Projects" class="footer-link mx-1" data-section="projects">Projelerim</a>
+                    <a href="/Contact" class="footer-link mx-1" data-section="contact">İletişim</a>
                 </div>
-                <div class="col-lg-4 text-center text-lg-end">
+                <div class="col-lg-2 text-center text-lg-end">
                     <div class="d-inline-flex gap-2">
                         <a href="@ViewBag.Github" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="GitHub"><i class="bi bi-github"></i></a>
                         <a href="@ViewBag.Linkedin" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>

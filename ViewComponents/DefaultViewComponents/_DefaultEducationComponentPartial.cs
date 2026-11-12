@@ -14,7 +14,7 @@ public class _DefaultEducationComponentPartial : ViewComponent
 
     public IViewComponentResult Invoke()
     {
-        var values = _context.Educations.ToList();
+        var values = _context.Educations.OrderBy(x => x.DisplayOrder).ToList();
 
         return View(values);
     }

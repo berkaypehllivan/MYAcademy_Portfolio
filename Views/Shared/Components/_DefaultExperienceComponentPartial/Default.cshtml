@@ -18,7 +18,7 @@
                 <div class="exp-card">
                     <div class="row g-4">
                         <div class="col-lg-4">
-                            <span class="pill pill-amber mb-3"><i class="bi bi-calendar3"></i> @item.Duration</span>
+                            <span class="pill pill-amber mb-3"><i class="bi bi-calendar3"></i> @item.StartDate - @item.EndDate</span>
                             <h3 class="fs-5 mb-1">@item.Title</h3>
                             <div class="fw-semibold mb-1" style="color: var(--emerald);">@item.CompanyName</div>
 
@@ -31,10 +31,6 @@
                                 @if (!string.IsNullOrWhiteSpace(item.SideTitle))
                                 {
                                     <span class="pill pill-amber">@item.SideTitle</span>
-                                }
-                                @if (item.IsActive)
-                                {
-                                    <span class="pill pill-amber">Devam ediyor</span>
                                 }
                             </div>
                         </div>

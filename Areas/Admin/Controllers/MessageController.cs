@@ -4,15 +4,10 @@ using MYAcademy_Portfolio.Context;
 namespace MYAcademy_Portfolio.Areas.Admin.Controllers;
 
 [Area("Admin")]
-public class MessageController : Controller
+public class MessageController : BaseController
 {
-    private readonly PortfolioContext _context;
-    private readonly IConfiguration _config;
-
-    public MessageController(PortfolioContext context, IConfiguration config)
+    public MessageController(PortfolioContext context, IWebHostEnvironment env) : base(context, env)
     {
-        _context = context;
-        _config = config;
     }
 
     public IActionResult Index()

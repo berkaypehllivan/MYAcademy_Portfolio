@@ -133,6 +133,9 @@ namespace MYAcademy_Portfolio.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("DisplayOrder")
+                        .HasColumnType("int");
+
                     b.Property<string>("Duration")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -168,7 +171,10 @@ namespace MYAcademy_Portfolio.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Duration")
+                    b.Property<int>("DisplayOrder")
+                        .HasColumnType("int");
+
+                    b.Property<string>("EndDate")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -176,6 +182,10 @@ namespace MYAcademy_Portfolio.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("SideTitle")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StartDate")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -246,6 +256,9 @@ namespace MYAcademy_Portfolio.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("DisplayOrder")
+                        .HasColumnType("int");
+
                     b.Property<string>("GithubUrl")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -281,6 +294,9 @@ namespace MYAcademy_Portfolio.Migrations
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("DisplayOrder")
+                        .HasColumnType("int");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");

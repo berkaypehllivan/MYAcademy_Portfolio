@@ -18,5 +18,4 @@ public class _AdminLayoutUnreadMessageBadgeViewComponentPartial : ViewComponent
         var count = await _context.Messages.CountAsync(x => !x.IsRead);
         return View(count);
     }
-
 }

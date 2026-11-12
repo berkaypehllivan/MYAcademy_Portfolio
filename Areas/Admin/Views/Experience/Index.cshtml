@@ -17,11 +17,11 @@
         
                 </div>
             </div>
-                <div class="pd-header-right">
-                    <a href="/Admin/Experience/Create" class="btn btn-primary px-3 py-2 rounded-3 ms-auto">
-                        <i class="bx bx-plus"></i> Yeni Deneyim Ekle
-                    </a>
-                </div>
+            <div class="pd-header-right">
+                <a href="/Admin/Experience/Create" class="btn btn-primary px-3 py-2 rounded-3 ms-auto">
+                    <i class="bx bx-plus"></i> Yeni Deneyim Ekle
+                </a>
+            </div>
         </div>
         <div class="card border-0 shadow-sm rounded-4">
             <div class="card-body p-4">
@@ -29,6 +29,8 @@
                     <table class="table table-hover align-middle mb-0">
                         <thead style="background-color: #f9fafb;">
                             <tr>
+                                <th class="border-bottom-0 text-uppercase text-secondary"
+                                    style="font-size: 12px; font-weight: 600; width: 80px;">Sıra</th>
                                 <th class="border-bottom-0 text-uppercase text-secondary"
                                     style="font-size: 12px; font-weight: 600;">Pozisyon</th>
                                 <th class="border-bottom-0 text-uppercase text-secondary"
@@ -38,7 +40,7 @@
                                 <th class="border-bottom-0 text-uppercase text-secondary"
                                     style="font-size: 12px; font-weight: 600;">Yan Başlık</th>
                                 <th class="border-bottom-0 text-uppercase text-secondary"
-                                    style="font-size: 12px; font-weight: 600;">Aktif - Pasif</th>
+                                    style="font-size: 12px; font-weight: 600;">Durum</th>
                                 <th class="border-bottom-0 text-uppercase text-secondary text-end"
                                     style="font-size: 12px; font-weight: 600; width: 150px;">İşlemler</th>
                             </tr>
@@ -48,6 +50,11 @@
                             {
                                 <tr>
                                     <td>
+                                        <span class="badge bg-secondary bg-opacity-10 text-secondary rounded-pill px-3 py-1">
+                                            @(item.DisplayOrder)
+                                        </span>
+                                    </td>
+                                    <td>
                                         <div class="fw-medium text-dark">@item.Title</div>
                                     </td>
                                     <td>
@@ -55,16 +62,13 @@
                                     </td>
                                     <td>
                                         <div><span
-                                            class="badge bg-primary bg-opacity-10 text-primary rounded-pill px-2 py-1 mb-1">@item.Duration</span>
+                                            class="badge bg-primary bg-opacity-10 text-primary rounded-pill px-2 py-1 mb-1">@item.StartDate
+                                            - @item.EndDate</span>
                                         </div>
                                         <div>
                                             <span
                                             class="badge bg-success bg-opacity-10 text-success rounded-pill px-2 py-1">@item.WorkType</span>
-                                            @if (item.IsActive)
-                                            {
-                                                <span
-                                                class="badge bg-warning bg-opacity-10 text-warning rounded-pill px-2 py-1">Aktif</span>
-                                            }
+
                                         </div>
                                     </td>
                                     <td class="text-muted small">@item.SideTitle</td>
@@ -75,6 +79,20 @@
                                         </span>
                                     </td>
                                     <td class="text-end text-nowrap">
+                                        <form asp-action="MoveUp" asp-route-id="@item.ExperienceId" method="post"
+                                              class="d-inline">
+                                            <button type="submit" class="btn btn-sm btn-light border-0 rounded-pill px-2 me-1"
+                                                    title="Yukarı Taşı">
+                                                <i class="bx bx-arrow-up"></i>
+                                            </button>
+                                        </form>
+                                        <form asp-action="MoveDown" asp-route-id="@item.ExperienceId" method="post"
+                                              class="d-inline">
+                                            <button type="submit" class="btn btn-sm btn-light border-0 rounded-pill px-2 me-1"
+                                                    title="Aşağı Taşı">
+                                                <i class="bx bx-arrow-down"></i>
+                                            </button>
+                                        </form>
                                         <a href="/Admin/Experience/Create/@item.ExperienceId"
                                            class="btn btn-sm text-primary bg-primary bg-opacity-10 border-0 rounded-pill px-3 me-1 fw-medium">Düzenle</a>
                                         <a href="/Admin/Experience/Delete/@item.ExperienceId"

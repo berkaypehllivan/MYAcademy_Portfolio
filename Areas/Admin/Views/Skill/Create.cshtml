@@ -10,7 +10,6 @@
     <div class="row g-4">
         <div class="col-lg">
 
-            <input type="hidden" asp-for="SkillId" />
             <div class="pd-page-header">
                 <div class="pd-header-left">
                     <div class="pd-header-icon">
@@ -28,6 +27,9 @@
                     <form asp-area="Admin" asp-controller="Skill" asp-action="@(isUpdate ? "Update" : "Create")"
                           method="post">
                     
+                        <input type="hidden" asp-for="SkillId" />
+                        <input type="hidden" asp-for="DisplayOrder" />
+
                         <div class="card-body p-4">
                             <div class="row g-3">
                                 <div class="col-12">

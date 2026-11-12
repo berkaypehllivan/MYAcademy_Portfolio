@@ -9,8 +9,6 @@
 
     <div class="row g-4">
         <div class="col-lg-12">
-                    
-            <input type="hidden" asp-for="ExperienceId" />
             <div class="pd-page-header">
                 <div class="pd-header-left">
                     <div class="pd-header-icon">
@@ -27,6 +25,9 @@
                 <div class="card border-0 shadow-sm rounded-4">
                     <form asp-area="Admin" asp-controller="Experience" asp-action="@(isUpdate ? "Update" : "Create")"
                           method="post">
+
+                        <input type="hidden" asp-for="ExperienceId" />
+                        <input type="hidden" asp-for="DisplayOrder" />
 
                         <div class="card-body p-4">
                             <div class="row g-3">
@@ -45,54 +46,61 @@
                                                    placeholder="Örn: NovaTech Solutions" required />
                                         </div>
 
-                                        <!-- Tarih & Tip -->
-                                        <div class="col-md-6">
-                                            <label asp-for="Duration" class="form-label fw-semibold small text-dark">Tarih Aralığı
+                                        <!-- Tarih -->
+                                        <div class="col-md-3">
+                                            <label asp-for="StartDate" class="form-label fw-semibold small text-dark">Başlangıç
+                                                Tarihi
                                                 <span class="text-danger">*</span></label>
-                                                <input asp-for="Duration" class="form-control rounded-3"
-                                                       placeholder="Örn: 2024 - Günümüz" required />
+                                                <input asp-for="StartDate" class="form-control rounded-3" placeholder="Örn: 07.2024"
+                                                       required />
                                             </div>
-                                            <div class="col-md-6">
-                                                <label asp-for="WorkType" class="form-label fw-semibold small text-dark">Çalışma Tipi
-                                                    <span class="text-danger">*</span></label>
-                                                    <input asp-for="WorkType" class="form-control rounded-3"
-                                                           placeholder="Örn: Tam Zamanlı, Yarı Zamanlı" required />
+                                            <div class="col-md-3">
+                                                <label asp-for="EndDate" class="form-label fw-semibold small text-dark">Bitiş
+                                                    Tarihi</label>
+                                                    <input asp-for="EndDate" class="form-control rounded-3"
+                                                           placeholder="Örn: 08.2024 veya Günümüz" required />
                                                 </div>
-
-                                                <!-- Yan Başlık & Aktiflik -->
                                                 <div class="col-md-6">
-                                                    <label asp-for="SideTitle" class="form-label fw-semibold small text-dark">Yan Başlık
-                                                        (Timeline Çizgisindeki) <span class="text-danger">*</span></label>
-                                                        <input asp-for="SideTitle" class="form-control rounded-3"
-                                                               placeholder="Örn: Kurumsal Web Çözümleri" required />
+                                                    <label asp-for="WorkType" class="form-label fw-semibold small text-dark">Çalışma Tipi
+                                                        <span class="text-danger">*</span></label>
+                                                        <input asp-for="WorkType" class="form-control rounded-3"
+                                                               placeholder="Örn: Tam Zamanlı, Yarı Zamanlı" required />
                                                     </div>
-                                                    <div class="col-md-6 d-flex align-items-center mt-4">
-                                                        <div class="form-check form-switch mt-3">
-                                    
-                                                            <label asp-for="IsActive" class="form-label fw-semibold small text-dark">Aktif -
-                                                                Pasif (Anasayfada Göster - Gizle)</label>
-                                                                <input class="form-check-input" type="checkbox" asp-for="IsActive" role="switch">
-                                                            </div>
-                                                        </div>
 
-                                                        <!-- Açıklama -->
-                                                        <div class="col-12">
-                                                            <label asp-for="Description" class="form-label fw-semibold small text-dark">Açıklama
-                                                                <span class="text-danger">*</span></label>
-                                                                <textarea asp-for="Description" class="form-control rounded-3" rows="5"
-                                                                          placeholder="Her satıra bir sorumluluk gelecek şekilde Enter ile inerek yazın..."
-                                                                          required></textarea>
+                                                    <!-- Yan Başlık & Aktiflik -->
+                                                    <div class="col-md-6">
+                                                        <label asp-for="SideTitle" class="form-label fw-semibold small text-dark">Yan Başlık
+                                                            (Timeline Çizgisindeki) <span class="text-danger">*</span></label>
+                                                            <input asp-for="SideTitle" class="form-control rounded-3"
+                                                                   placeholder="Örn: Kurumsal Web Çözümleri" required />
+                                                        </div>
+                                                        <div class="col-md-6 d-flex align-items-center mt-4">
+                                                            <div class="form-check form-switch mt-3">
+                                    
+                                                                <label asp-for="IsActive" class="form-label fw-semibold small text-dark">Aktif -
+                                                                    Pasif (Anasayfada Göster - Gizle)</label>
+                                                                    <input class="form-check-input" type="checkbox" asp-for="IsActive" role="switch">
+                                                                </div>
+                                                            </div>
+
+                                                            <!-- Açıklama -->
+                                                            <div class="col-12">
+                                                                <label asp-for="Description" class="form-label fw-semibold small text-dark">Açıklama
+                                                                    <span class="text-danger">*</span></label>
+                                                                    <textarea asp-for="Description" class="form-control rounded-3" rows="5"
+                                                                              placeholder="Her satıra bir sorumluluk gelecek şekilde Enter ile inerek yazın..."
+                                                                              required></textarea>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="card-footer bg-light border-top p-3 d-flex justify-content-end gap-2 rounded-bottom-4">
-                                                        <a asp-area="Admin" asp-controller="Experience" asp-action="Index"
-                                                           class="btn btn-outline-secondary rounded-3 px-3 py-2 fw-medium text-dark border-opacity-25">Vazgeç</a>
-                                                        <button type="submit" class="btn btn-primary rounded-3 px-4 py-2 fw-medium">
-                                                            @(isUpdate ? "Değişiklikleri Kaydet" : "Deneyimi Ekle")
-                                                        </button>
-                                                    </div>
-                                                </form>
+                                                        <div class="card-footer bg-light border-top p-3 d-flex justify-content-end gap-2 rounded-bottom-4">
+                                                            <a asp-area="Admin" asp-controller="Experience" asp-action="Index"
+                                                               class="btn btn-outline-secondary rounded-3 px-3 py-2 fw-medium text-dark border-opacity-25">Vazgeç</a>
+                                                            <button type="submit" class="btn btn-primary rounded-3 px-4 py-2 fw-medium">
+                                                                @(isUpdate ? "Değişiklikleri Kaydet" : "Deneyimi Ekle")
+                                                            </button>
+                                                        </div>
+                                                    </form>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>

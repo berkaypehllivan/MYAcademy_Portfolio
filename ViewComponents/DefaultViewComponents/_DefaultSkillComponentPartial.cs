@@ -13,7 +13,7 @@ public class _DefaultSkillComponentPartial : ViewComponent
     }
     public IViewComponentResult Invoke()
     {
-        var values = _context.Skills.Where(x => x.IsActive).ToList();
+        var values = _context.Skills.Where(x => x.IsActive).OrderBy(x => x.DisplayOrder).ToList();
         return View(values);
     }
 }

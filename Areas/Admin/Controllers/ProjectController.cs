@@ -7,19 +7,18 @@ using MYAcademy_Portfolio.Entities;
 namespace MYAcademy_Portfolio.Areas.Admin.Controllers;
 
 [Area("Admin")]
-public class ProjectController : Controller
+public class ProjectController : BaseController
 {
-    private readonly PortfolioContext _context;
-    private readonly IWebHostEnvironment _env;
-
-    public ProjectController(PortfolioContext context, IWebHostEnvironment env)
+    public ProjectController(PortfolioContext context, IWebHostEnvironment env) : base(context, env)
     {
-        _context = context;
-        _env = env;
     }
+
     public IActionResult Index()
     {
-        var values = _context.Projects.Include(x => x.Category).ToList();
+        var values = _context.Projects
+        .Include(x => x.Category)
+        .OrderBy(x => x.DisplayOrder)
+        .ToList();
 
         ViewBag.Categories = _context.Categories.ToList();
         return View(values);
@@ -40,22 +39,77 @@ public class ProjectController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create(Project project)
+    public async Task<IActionResult> Create(Project project, IFormFile? CoverImageFile)
     {
+        if (!ModelState.IsValid)
+        {
+            var invalidFields = ModelState
+                .Where(x => x.Value.ValidationState == Microsoft.AspNetCore.Mvc.ModelBinding.ModelValidationState.Invalid)
+                .Select(x => x.Key)
+                .ToList();
+
+            TempData["Error"] = "Lütfen şu alanları kontrol edin: " + string.Join(", ", invalidFields);
+
+            LoadCategories();
+            return View(project);
+        }
+
+        if (CoverImageFile is { Length: > 0 })
+        {
+            var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".webp" };
+            var allowedContentTypes = new[] { "image/jpeg", "image/png", "image/webp" };
+            var extension = Path.GetExtension(CoverImageFile.FileName).ToLowerInvariant();
+            const long maxSize = 2 * 1024 * 1024;
+
+            if (!allowedExtensions.Contains(extension) || !allowedContentTypes.Contains(CoverImageFile.ContentType))
+            {
+                TempData["Error"] = "Yalnızca JPG, JPEG, PNG ve WEBP formatında görseller yüklenebilir.";
+                LoadCategories();
+                return View(project);
+            }
+
+            if (CoverImageFile.Length > maxSize)
+            {
+                TempData["Error"] = "Görsel boyutu 2 MB'ı geçemez.";
+                LoadCategories();
+                return View(project);
+            }
+
+            DeleteFileExists(project.CoverImageUrl);
+            project.CoverImageUrl = await SaveFileAsync(CoverImageFile, "projects");
+
+        }
         if (string.IsNullOrWhiteSpace(project.CoverImageUrl))
-            project.CoverImageUrl = "/img/default-project.png";
+            project.CoverImageUrl = "/img/default-image.png";
 
         if (project.ProjectId == 0)
         {
+            project.DisplayOrder = (_context.Projects.Max(x => (int?)x.DisplayOrder) ?? 0) + 1;
+
             _context.Projects.Add(project);
             TempData["Success"] = "Proje Başarıyla Eklendi.";
         }
         else
         {
-            _context.Projects.Update(project);
+            var existing = _context.Projects.Find(project.ProjectId);
+
+            if (existing is null)
+            {
+                TempData["Error"] = "Veri Bulunamadı.";
+                return RedirectToAction("Index");
+            }
+
+            existing.Title = project.Title;
+            existing.CategoryId = project.CategoryId;
+            existing.Keywords = project.Keywords;
+            existing.GithubUrl = project.GithubUrl;
+            existing.LiveDemoUrl = project.LiveDemoUrl;
+            existing.CoverImageUrl = project.CoverImageUrl;
+            existing.Description = project.Description;
+            existing.IsActive = project.IsActive;
+
             TempData["Success"] = "Proje Başarıyla Güncellendi.";
         }
-
         await _context.SaveChangesAsync();
         return RedirectToAction("Index");
     }
@@ -84,7 +138,7 @@ public class ProjectController : Controller
         {
             _context.Categories.Add(new Category { CategoryName = categoryName });
             _context.SaveChanges();
-            TempData["Success"] = "Kategori Başarıyla Silindi.";
+            TempData["Success"] = "Kategori Başarıyla Eklendi.";
         }
         return RedirectToAction("Index");
     }
@@ -103,8 +157,52 @@ public class ProjectController : Controller
         {
             _context.Categories.Remove(category);
             _context.SaveChanges();
-            TempData["Success"] = "Kategori Başarıyla Eklendi.";
+            TempData["Success"] = "Kategori Başarıyla Silindi.";
         }
+        return RedirectToAction("Index");
+    }
+
+    [HttpPost]
+    public IActionResult MoveUp(int id)
+    {
+        var projects = _context.Projects.OrderBy(x => x.DisplayOrder).ToList();
+        var index = projects.FindIndex(x => x.ProjectId == id);
+
+        if (index > 0)
+        {
+            var temp = projects[index];
+            projects[index] = projects[index - 1];
+            projects[index - 1] = temp;
+        }
+
+        for (int i = 0; i < projects.Count; i++)
+        {
+            projects[i].DisplayOrder = i + 1;
+        }
+
+        _context.SaveChanges();
+        return RedirectToAction("Index");
+    }
+
+    [HttpPost]
+    public IActionResult MoveDown(int id)
+    {
+        var projects = _context.Projects.OrderBy(x => x.DisplayOrder).ToList();
+        var index = projects.FindIndex(x => x.ProjectId == id);
+
+        if (index >= 0 && index < projects.Count - 1)
+        {
+            var temp = projects[index];
+            projects[index] = projects[index + 1];
+            projects[index + 1] = temp;
+        }
+
+        for (int i = 0; i < projects.Count; i++)
+        {
+            projects[i].DisplayOrder = i + 1;
+        }
+
+        _context.SaveChanges();
         return RedirectToAction("Index");
     }
 }

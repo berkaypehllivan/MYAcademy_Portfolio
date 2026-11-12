@@ -17,6 +17,7 @@ public class _DefaultExperienceComponentPartial : ViewComponent
     {
         var values = _context.Experiences
             .Where(x => x.IsActive)
+            .OrderBy(x => x.DisplayOrder)
             .ToList();
         return View(values);
     }

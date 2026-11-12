@@ -1,6 +1,6 @@
 ﻿namespace MYAcademy_Portfolio.Entities;
 
-public class Education
+public class Education : IOrderable
 {
     public int EducationId { get; set; }
     public string Title { get; set; }
@@ -8,5 +8,5 @@ public class Education
     public string? Location { get; set; }
     public string Description { get; set; }
     public string Duration { get; set; }
-
+    public int DisplayOrder { get; set; }
 }

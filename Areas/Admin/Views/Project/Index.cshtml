@@ -20,19 +20,27 @@
                     bağlantılarını sergileyerek çalışmalarınızı öne çıkarın.</p>
                 </div>
             </div>
-                <div class="pd-header-right">
-                    <a href="/Admin/Project/Create" class="btn btn-primary px-3 py-2 rounded-3 ms-auto">
-                        <i class="bx bx-plus"></i> Yeni Proje Ekle
-                    </a>
-                </div>
+            <div class="pd-header-right">
+                <button type="button" class="btn btn-outline-secondary px-3 py-2 rounded-3 fw-medium" data-bs-toggle="modal"
+                        data-bs-target="#categoryModal">
+                    <i class="bi bi-folder-plus"></i> Kategorileri Yönet
+                </button>
+
+                <a href="/Admin/Project/Create" class="btn btn-primary px-3 py-2 rounded-3 ms-auto">
+                    <i class="bx bx-plus"></i> Yeni Proje Ekle
+                </a>
+            </div>
         </div>
 
         <div class="card border-0 shadow-sm rounded-4">
             <div class="card-body p-4">
                 <div class="table-responsive">
+
                     <table class="table table-hover align-middle mb-0">
                         <thead style="background-color: #f9fafb;">
                             <tr>
+                                <th class="border-bottom-0 text-uppercase text-secondary"
+                style="font-size: 12px; font-weight: 600; width: 80px;">Sıra</th>
                                 <th class="border-bottom-0 text-uppercase text-secondary"
                                     style="font-size: 12px; font-weight: 600; width: 60px;">Görsel</th>
                                 <th class="border-bottom-0 text-uppercase text-secondary"
@@ -41,8 +49,8 @@
                                     style="font-size: 12px; font-weight: 600;">Kategori</th>
                                 <th class="border-bottom-0 text-uppercase text-secondary"
                                     style="font-size: 12px; font-weight: 600;">Etiketler</th>
-                                <th class="border-bottom-0 text-uppercase text-secondary"
-                                    style="font-size: 12px; font-weight: 600;">Aktif - Pasif</th>
+                                <th class="border-bottom-0 text-uppercase text-secondary text-nowrap"
+                                    style="font-size: 12px; font-weight: 600;">Durum</th>
                                 <th class="border-bottom-0 text-uppercase text-secondary text-end"
                                     style="font-size: 12px; font-weight: 600; width: 160px;">İşlemler</th>
                             </tr>
@@ -52,6 +60,11 @@
                             @foreach (var item in Model)
                             {
                                 <tr>
+                         <td>
+                                        <span class="badge bg-secondary bg-opacity-10 text-secondary rounded-pill px-3 py-1">
+                                            @(item.DisplayOrder)
+                                        </span>
+                                    </td>
                                     <td>
                                         <div class="bg-light rounded-3 overflow-hidden d-flex align-items-center justify-content-center"
                                              style="width: 50px; height: 35px;">
@@ -88,18 +101,41 @@
                                     </td>
 
                                     <td>
-                                        <div class="text-muted small text-truncate" style="max-width: 150px;"
-                                             title="@item.Keywords">
-                                            @item.Keywords
+                                        <div class="d-flex flex-wrap gap-1">
+                                            @if (!string.IsNullOrEmpty(item.Keywords))
+                                            {
+                                                foreach (var tag in item.Keywords.Split(new[] { ',' },
+                                                StringSplitOptions.RemoveEmptyEntries))
+                                                {
+                                                    <span class="badge bg-light text-dark border fw-normal px-2 py-1 rounded-pill">
+                                                        <span class="text-success fw-bold">✓</span> @tag.Trim()
+                                                    </span>
+                                                }
+                                            }
                                         </div>
                                     </td>
-                                    <td>
+
+                                    <td class="text-nowrap">
                                         <span
                                             class="badge rounded-pill px-3 py-2 fw-medium @(item.IsActive ? "bg-success bg-opacity-10 text-success" : "bg-secondary bg-opacity-10 text-secondary")">
                                             @(item.IsActive ? "Aktif" : "Pasif")
                                         </span>
                                     </td>
+
                                     <td class="text-end text-nowrap">
+                                        <form asp-action="MoveUp" asp-route-id="@item.ProjectId" method="post" class="d-inline">
+                                            <button type="submit" class="btn btn-sm btn-light border-0 rounded-pill px-2 me-1"
+                                                    title="Yukarı Taşı">
+                                                <i class="bx bx-arrow-up"></i>
+                                            </button>
+                                        </form>
+                                        <form asp-action="MoveDown" asp-route-id="@item.ProjectId" method="post"
+                                              class="d-inline">
+                                            <button type="submit" class="btn btn-sm btn-light border-0 rounded-pill px-2 me-1"
+                                                    title="Aşağı Taşı">
+                                                <i class="bx bx-arrow-down"></i>
+                                            </button>
+                                        </form>
                                         <a href="/Admin/Project/Create/@item.ProjectId"
                                            class="btn btn-sm text-primary bg-primary bg-opacity-10 border-0 rounded-pill px-3 me-1 fw-medium">
                                             Düzenle

@@ -8,13 +8,10 @@ namespace MYAcademy_Portfolio.Areas.Admin.Controllers;
 
 [Area("Admin")]
 
-public class DashboardController : Controller
+public class DashboardController : BaseController
 {
-    private readonly PortfolioContext _context;
-
-    public DashboardController(PortfolioContext context)
+    public DashboardController(PortfolioContext context, IWebHostEnvironment env) : base(context, env)
     {
-        _context = context;
     }
 
     public async Task<IActionResult> Index()
@@ -31,12 +28,10 @@ public class DashboardController : Controller
         ViewBag.messageReadByTrueCount = await _context.Messages.CountAsync(m => m.IsRead);
         ViewBag.messageReadByFalseCount = await _context.Messages.CountAsync(m => !m.IsRead);
 
-        // Kategoriye göre proje (Categories'ten başlıyoruz: projesi olmayan kategori de görünür)
         ViewBag.projectsByCategory = await _context.Categories
             .Select(c => new { c.CategoryName, Count = c.Projects.Count })
             .ToDictionaryAsync(x => x.CategoryName, x => x.Count);
 
-        // Proje bağlantı / anahtar kelime durumu
         ViewBag.projectDemoCount = await _context.Projects.CountAsync(p => p.LiveDemoUrl != null && p.LiveDemoUrl != "");
         ViewBag.projectKeywordCount = await _context.Projects.CountAsync(p => p.Keywords != null && p.Keywords != "");
 
@@ -51,14 +46,12 @@ public class DashboardController : Controller
         }
         ViewBag.messagesByMonth = monthly;
 
-        // Deneyim: aktif sayısı + çalışma türü dağılımı
         ViewBag.activeExperienceCount = await _context.Experiences.CountAsync(e => e.IsActive);
         ViewBag.workTypes = await _context.Experiences
             .GroupBy(e => e.WorkType)
             .Select(g => new { g.Key, Count = g.Count() })
             .ToDictionaryAsync(x => x.Key, x => x.Count);
 
-        // Yetenek: Keywords virgülle ayrılmış varsayıldı
         var skills = await _context.Skills.ToListAsync();
         int KeywordCount(Skill s) => (s.Keywords ?? "")
             .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries).Length;
@@ -67,23 +60,20 @@ public class DashboardController : Controller
         ViewBag.topSkills = skills
             .OrderByDescending(KeywordCount)
             .Take(6)
-            .GroupBy(s => s.Title)                       // aynı başlık iki kez varsa ToDictionary patlamasın
+            .GroupBy(s => s.Title)
             .ToDictionary(g => g.Key, g => g.Max(KeywordCount));
 
-        // Zaman çizelgeleri (Title, Sub, Period)
         ViewBag.experiences = (await _context.Experiences.OrderByDescending(e => e.ExperienceId).Take(4).ToListAsync())
-            .Select(e => (e.Title, $"{e.CompanyName} · {e.WorkType}", e.Duration))
+            .Select(e => (e.Title, $"{e.CompanyName} · {e.WorkType}", e.StartDate))
             .ToList();
         ViewBag.educations = (await _context.Educations.OrderByDescending(e => e.EducationId).Take(4).ToListAsync())
             .Select(e => (e.Title, e.SubTitle ?? e.Location ?? "", e.Duration))
             .ToList();
 
-        // Son mesajlar
         ViewBag.recentMessages = (await _context.Messages.OrderByDescending(m => m.SendDate).Take(5).ToListAsync())
             .Select(m => (m.NameSurname, m.Email, m.Subject, m.SendDate.ToString("dd.MM.yyyy"), m.IsRead))
             .ToList();
 
-        // Profil doluluğu
         var about = await _context.Abouts.FirstOrDefaultAsync();
         var contact = await _context.Contacts.FirstOrDefaultAsync();
         var aboutFields = new[] { about?.FirstLastName, about?.Description, about?.ImageUrl };

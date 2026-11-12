@@ -26,7 +26,8 @@
     <Folder Include="ViewComponents\AdminViewComponents\" />
     <Folder Include="ViewComponents\StatisticsViewComponents\" />
     <Folder Include="wwwroot\files\" />
-    <Folder Include="wwwroot\img\projects\" />
+    <Folder Include="wwwroot\uploads\about\" />
+    <Folder Include="wwwroot\uploads\projects\" />
   </ItemGroup>
 
 </Project>

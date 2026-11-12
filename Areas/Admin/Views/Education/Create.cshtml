@@ -6,10 +6,8 @@
 }
 
 <div class="container-fluid px-0 py-3">
-
     <div class="row g-4">
         <div class="col-lg-12">
-            <input type="hidden" asp-for="EducationId" />
             <div class="pd-page-header">
                 <div class="pd-header-left">
                     <div class="pd-header-icon">
@@ -27,7 +25,8 @@
                     <!-- DİNAMİK FORM ACTION -->
                     <form asp-area="Admin" asp-controller="Education" asp-action="@(isUpdate ? "Update" : "Create")"
                           method="post">
-                    
+                        <input type="hidden" asp-for="EducationId" />
+                        <input type="hidden" asp-for="DisplayOrder" />
                         <!-- GÜNCELLEME İÇİN GİZLİ ALAN -->
                         <div class="card-body p-4">
                             <div asp-validation-summary="ModelOnly" class="alert alert-danger py-2 small mb-3"></div>
@@ -86,3 +85,4 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
